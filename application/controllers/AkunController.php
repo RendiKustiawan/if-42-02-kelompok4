@@ -28,17 +28,28 @@ class AkunController extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('RegistrasiView');
         } else {
-            echo 'data berhasil ditambahkan';
-            // $data = [
-            //     'nip' => $this->input->post('nip'),
-            //     'name' => $this->input->post('name'),
-            //     'username' => $this->input->post('username'),
-            //     'password' => password_hash($this->input->post('password'),
-            //     PASSWORD_DEFAULT),
-            //     'hak_akses' => 3
-            // ];
 
-            // $this->db->insert('akun',$data);
+            $data1 = [
+                'username' => $this->input->post('username'),
+                'password' => password_hash(
+                    $this->input->post('password'),
+                    PASSWORD_DEFAULT
+                ),
+                'hak_akses' => 3
+            ];
+            $data2 = [
+                'username' => $this->input->post('username'),
+                'nip' => $this->input->post('nip'),
+                'nama_pasien' => $this->input->post('name')
+
+
+            ];
+
+
+
+            $this->db->insert('akun', $data1);
+            $this->db->insert('pasien_user', $data2);
+            redirect('akuncontroller');
         }
     }
 }
