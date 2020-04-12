@@ -16,9 +16,13 @@ class AkunController extends CI_Controller
 
     public function registrasi()
     {
-        $this->form_validation->set_rules('nip', 'Nip', 'required|trim');
+        $this->form_validation->set_rules('nip', 'Nip', 'required|trim|is_unique[pasien_user.nip]', [
+            'is_unique' => 'NIP sudah Terdaftar'
+        ]);
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
-        $this->form_validation->set_rules('username', 'Username', 'required|trim'); //is_unique[akun.username]
+        $this->form_validation->set_rules('username', 'Username', 'required|is_unique[pasien_user.username]trim', [
+            'is_unique' => 'Username Sudah Terdaftar'
+        ]);
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[5]|matches[password2]', [
             'matches' => 'Password dont Match!',
             'min_length' => 'Password too Short'
@@ -44,8 +48,6 @@ class AkunController extends CI_Controller
 
 
             ];
-
-
 
             $this->db->insert('akun', $data1);
             $this->db->insert('pasien_user', $data2);
