@@ -34,6 +34,9 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
+
+                            <?= $this->session->flashdata('message'); ?>
+
                             <form class="user" method="post" action="<?= base_url('akuncontroller/registrasi') ?>">
 
                                 <div class="form-group">

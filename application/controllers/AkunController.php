@@ -11,7 +11,44 @@ class AkunController extends CI_Controller
 
     public function index()
     {
-        $this->load->view('LoginView');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim');
+        $this->form_validation->set_rules('password', 'password', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('LoginView');
+        } else {
+            $this->_login();
+        }
+    }
+
+    private function _login()
+    {
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
+
+        $query = $this->db->get_where('akun', ['username' => $username])->row_array();
+        // var_dump($query);
+        // die;
+        if ($query) {
+            if ($query['hak_akses'] == 3) {
+                if (password_verify($password, $query['password'])) {
+                    $data = [
+                        'username' => $query['username']
+                    ];
+                    $this->session->set_userdata($data);
+                    redirect('pasiencontroller');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Salah!</div>');
+                    redirect('akuncontroller');
+                }
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">username tidak memiliki hak akses!</div>');
+                redirect('akuncontroller');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Username is Not Registered!</div>');
+            redirect('akuncontroller');
+        }
     }
 
     public function registrasi()
@@ -34,21 +71,23 @@ class AkunController extends CI_Controller
         } else {
 
             $data1 = [
-                'username' => $this->input->post('username'),
+                'username' => $this->input->post('username', true),
                 'password' => password_hash(
-                    $this->input->post('password'),
+                    $this->input->post('password1'),
                     PASSWORD_DEFAULT
                 ),
                 'hak_akses' => 3
             ];
             $data2 = [
-                'username' => $this->input->post('username'),
-                'nip' => $this->input->post('nip'),
-                'nama_pasien' => $this->input->post('name')
+                'username' => $this->input->post('username', true),
+                'nip' => $this->input->post('nip', true),
+                'nama_pasien' => $this->input->post('name', true)
 
 
             ];
 
+            $this->session->set_flashdata('message', '<div class="alert alert-success" 
+            role="alert">Data Berhasil Ditambahkan!</div>');
             $this->db->insert('akun', $data1);
             $this->db->insert('pasien_user', $data2);
             redirect('akuncontroller');
