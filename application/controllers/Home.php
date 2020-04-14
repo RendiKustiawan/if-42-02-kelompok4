@@ -20,6 +20,8 @@ class Home extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$content['main_view'] = 'LandingView';
+		$content['title'] = 'Welcome to Posyandu';
+		$this->load->view('Body', $content);
 	}
 }

@@ -36,18 +36,18 @@ class AkunController extends CI_Controller
                         'username' => $query['username']
                     ];
                     $this->session->set_userdata($data);
-                    redirect('pasiencontroller');
+                    redirect('PasienController');
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Salah!</div>');
-                    redirect('akuncontroller');
+                    redirect('AkunController');
                 }
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">username tidak memiliki hak akses!</div>');
-                redirect('akuncontroller');
+                redirect('AkunController');
             }
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Username is Not Registered!</div>');
-            redirect('akuncontroller');
+            redirect('AkunController');
         }
     }
 
@@ -90,7 +90,7 @@ class AkunController extends CI_Controller
             role="alert">Data Berhasil Ditambahkan!</div>');
             $this->db->insert('akun', $data1);
             $this->db->insert('pasien_user', $data2);
-            redirect('akuncontroller');
+            redirect('AkunController');
         }
     }
 }
