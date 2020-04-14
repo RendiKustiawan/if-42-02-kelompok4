@@ -13,10 +13,10 @@
         <a class="nav-link" href="#">About</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('AkunController') ?>">Sign In</a>
+        <a class="nav-link" href="<?= site_url('Landing/login') ?>">Sign In</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('AkunController/registrasi') ?>">Sign Up</a>
+        <a class="nav-link" href="<?= site_url('Landing/registrasi') ?>">Sign Up</a>
       </li>
     </ul>
   </div>
@@ -31,7 +31,7 @@
       <h1>Stay Healthy With Us</h1>
       <p>Health is a state of complete physical, mental and social well-being, and not merely the absence of disease or infirmity</p>
       <div class="text-center">
-        <a href="<?= site_url('AkunController/registrasi') ?>" class="big-sign-up-button">Sign Up Here !!!</a>
+        <a href="<?= site_url('Landing/registrasi') ?>" class="big-sign-up-button">Sign Up Here !!!</a>
       </div>
     </div>
     <div class="small-circle"></div>
