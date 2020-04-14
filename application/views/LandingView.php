@@ -24,9 +24,9 @@
 
 <div class="landing-content d-flex justify-content-center align-items-center flex-wrap">
   <div class="landing-vector">
-    <img src="<?= base_url('assets/vector.png') ?>" alt="vector">
+    <img src="<?= base_url('assets/vector.png') ?>" alt="vector" width="100%">
   </div>
-  <div class="landing-text-wrapper">
+  <div class="landing-text-wrapper p-3 p-md-none">
     <div class="landing-text">
       <h1>Stay Healthy With Us</h1>
       <p>Health is a state of complete physical, mental and social well-being, and not merely the absence of disease or infirmity</p>

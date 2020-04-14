@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Montserrat&family=Open+Sans&display=swap");
 
 .nav-item {
-  margin-left: 0.8cm;
+	margin-left: 0.8cm;
 }
 
 .landing-navbar-item {
@@ -18,14 +18,13 @@
 
 .landing-content {
 	background-color: #adb7d9;
-  min-height: 100vh;
-  color: white;
-  padding: 2.5cm 0 1cm 0;
-  position: relative;
+	min-height: 100vh;
+	padding: 2.5cm 0 1cm 0;
+	position: relative;
 }
 
 .landing-vector {
-  z-index: 1;
+	z-index: 1;
 }
 
 .landing-text-wrapper {
@@ -33,14 +32,15 @@
 }
 
 .landing-text {
-  position: relative;
-  z-index: 1;
+	position: relative;
+	z-index: 1;
+	color: white;
 }
 
 .landing-text h1 {
 	font-size: 3.125rem;
 	font-weight: 600;
-  font-family: "Open Sans", sans-serif;
+	font-family: "Open Sans", sans-serif;
 }
 
 .landing-text p {
@@ -56,17 +56,17 @@
 	height: 150px;
 	position: absolute;
 	top: -1.8cm;
-  left: -1.8cm;
+	left: -1.8cm;
 }
 
 .big-circle {
-  background: url("../img/landing/circle-big.png") no-repeat center center;
-  background-size: contain;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 295px;
-  height: 270px;
+	background: url("../img/landing/circle-big.png") no-repeat center center;
+	background-size: contain;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 295px;
+	height: 270px;
 }
 
 .big-sign-up-button {
@@ -78,7 +78,7 @@
 	color: white;
 	margin-top: 1em;
 	font-family: "Open Sans", sans-serif;
-  font-weight: 600;
+	font-weight: 600;
 }
 
 .big-sign-up-button:hover {
@@ -87,4 +87,48 @@
 
 a:hover {
 	text-decoration: none;
+}
+
+.sign-in-form {
+	max-width: 450px;
+	width: 100%;
+	height: 580px;
+	z-index: 1;
+	font-family: "Open Sans", sans-serif;
+}
+
+.sign-in-form .card {
+	height: inherit;
+	width: 100%;
+	background-color: #6c63ff;
+}
+
+.sign-in-form .card-header {
+	font-size: 2.25rem;
+	color: white;
+}
+
+.sign-in-form label {
+	color: white;
+	font-size: 1.3rem;
+}
+
+.sign-in-form input {
+	background-color: #a4a3e6;
+	outline: none;
+	border: #a4a3e6;
+	color: white;
+}
+
+#password + .fa-eye {
+	cursor: pointer;
+	pointer-events: all;
+}
+
+#password::after {
+	content: icon;
+}
+
+.sign-in-form .form-button button {
+	padding: 1em 3em;
 }
