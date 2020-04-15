@@ -61,7 +61,7 @@ class Landing extends CI_Controller
 						'username' => $query['username']
 					];
 					$this->session->set_userdata($data);
-					redirect('PasienController');
+					redirect('Landing/dashboard');
 				} else {
 					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Salah!</div>');
 					redirect('Landing/login');
@@ -118,6 +118,17 @@ class Landing extends CI_Controller
 			$this->db->insert('akun', $data1);
 			$this->db->insert('pasien_user', $data2);
 			redirect('Landing/login');
+		}
+	}
+
+	public function dashboard() {
+		if ($this->session->userdata('username')) {
+			$content['title'] = 'Dashboard';
+			$content['main_view'] = 'DashboardView';
+			$this->load->view('Body', $content);
+		} else {
+			echo "You need to log in first! Redirecting in 5 seconds";
+			header('Refresh:5; url='.base_url('Landing'));
 		}
 	}
 }

@@ -16,6 +16,11 @@
 </head>
 
 <body>
+  <?php
+   if ($title != "Welcome to Posyandu" && $title != "Sign In" && $title != "Sign Up") { 
+    $this->load->view('template/TopNav.php');
+   } 
+   ?>
   <?php $this->load->view($main_view) ?>
 </body>
 
