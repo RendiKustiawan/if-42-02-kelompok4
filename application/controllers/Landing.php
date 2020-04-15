@@ -21,10 +21,10 @@ class Landing extends CI_Controller
 	 */
 	public function __construct()
 	{
-			parent::__construct();
-			$this->load->library('form_validation');
+		parent::__construct();
+		$this->load->library('form_validation');
 	}
-	
+
 	public function index()
 	{
 		$content['main_view'] = 'LandingView';
@@ -32,16 +32,17 @@ class Landing extends CI_Controller
 		$this->load->view('Body', $content);
 	}
 
-	public function login() {
+	public function login()
+	{
 		$this->form_validation->set_rules('username', 'Username', 'required|trim');
 		$this->form_validation->set_rules('password', 'password', 'required|trim');
 		$content['main_view'] = 'LoginView';
 		$content['title'] = 'Sign In';
 
 		if ($this->form_validation->run() == false) {
-				$this->load->view('Body', $content);
+			$this->load->view('Body', $content);
 		} else {
-				$this->_login();
+			$this->_login();
 		}
 	}
 
@@ -60,7 +61,7 @@ class Landing extends CI_Controller
 						'username' => $query['username']
 					];
 					$this->session->set_userdata($data);
-					redirect('Landing/login');
+					redirect('PasienController');
 				} else {
 					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Salah!</div>');
 					redirect('Landing/login');
