@@ -1,4 +1,4 @@
-<nav class="dashboard-navbar navbar navbar-light fixed-top bg-white" style="padding: 0;">
+<nav class="dashboard-navbar navbar navbar-light fixed-top bg-white flex-wrap-none" style="padding: 0;">
   <div class="dashboard-brand d-flex align-items-center pl-2 mr-auto" style="background-color: #adb7d9">
     <button class="navbar-toggler">
       <span class="navbar-toggler-icon"></span>
@@ -13,6 +13,7 @@
         <?= $this->session->userdata('nama') ?>
       </a>
       <div class="d-none" id="floatingMenu">
+        <a href="<?= site_url('PasienController') ?>">Profile</a>
         <a href="<?= site_url('Landing/logout') ?>">logout</a>
       </div>
     </li>
@@ -23,6 +24,22 @@
   $(document).ready(function() {
     $("#menuUser").click(function() {
       $("#floatingMenu").toggleClass("d-none");
+    })
+
+    $(".navbar-toggler").click(function() {
+      $("#sideNav").toggleClass("d-none");
+    })
+
+    $(window).resize(function() {
+      if ($(window).width() < 769) {
+        if (!($("#sideNav").hasClass("d-none"))) {
+          $("#sideNav").toggleClass("d-none");
+        }
+      } else {
+        if (($("#sideNav").hasClass("d-none"))) {
+          $("#sideNav").toggleClass("d-none");
+        }
+      }
     })
   })
 </script>
