@@ -5,6 +5,6 @@ class PasienController extends CI_Controller
 {
     public function index()
     {
-        echo 'Ini Halaman Pasien';
+        echo 'Selamat datang ' . $this->session->userdata('nama');
     }
 }
