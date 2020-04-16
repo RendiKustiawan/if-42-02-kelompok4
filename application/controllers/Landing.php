@@ -29,7 +29,16 @@ class Landing extends CI_Controller
 	{
 		$content['main_view'] = 'LandingView';
 		$content['title'] = 'Welcome to Posyandu';
+		if ($this->session->userdata('username')) {
+			$content['main_view'] = 'DashboardView';
+			$content['title'] = 'Dashboard';
+		}
 		$this->load->view('Body', $content);
+	}
+
+	public function logout() {
+		session_destroy();
+		redirect(base_url());
 	}
 
 	public function login()
@@ -54,20 +63,39 @@ class Landing extends CI_Controller
 		$query = $this->db->get_where('akun', ['username' => $username])->row_array();
 		// var_dump($query);
 		// die;
+
+		// kondisi ketika username valid
 		if ($query) {
-			if ($query['hak_akses'] == 3) {
-				if (password_verify($password, $query['password'])) {
+			// kondisi ketika password valid
+			if (password_verify($password, $query['password'])) {
+				$user = '';
+				$data = '';
+				if ($query['hak_akses'] == 3) {
+					$user = $this->db->get_where('pasien_user', ['username' => $username])->row_array();
 					$data = [
-						'username' => $query['username']
+						'username' => $user['username'],
+						'nama' => $user['nama_pasien'],
+						'hak_akses' => $query['hak_akses']
 					];
-					$this->session->set_userdata($data);
-					redirect('Landing/dashboard');
+				} else if ($query['hak_akses'] == 2) {
+					$user = $this->db->get_where('dokter', ['username' => $username])->row_array();
+					$data = [
+						'username' => $user['username'],
+						'nama' => $user['nama_dokter'],
+						'hak_akses' => $query['hak_akses']
+					];
 				} else {
-					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Salah!</div>');
-					redirect('Landing/login');
+					$user = $this->db->get_where('admin', ['username' => $username])->row_array();
+					$data = [
+						'username' => $user['username'],
+						'nama' => $user['nama_admin'],
+						'hak_akses' => $query['hak_akses']
+					];
 				}
+				$this->session->set_userdata($data);
+				redirect('Landing/dashboard');
 			} else {
-				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">username tidak memiliki hak akses!</div>');
+				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Salah!</div>');
 				redirect('Landing/login');
 			}
 		} else {
