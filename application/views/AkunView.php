@@ -1,47 +1,40 @@
-<table class="table table-striped" id="mydata">
-    <thead>
+<div class="col p-5">
+  <div class="table-responsive container" style="width: 100%;">
+    <table class="table table-dark table-hover table-bordered" id="mydata">
+      <thead>
         <tr>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Hak Akses</th>
-            <th>Aksi</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Hak Akses</th>
         </tr>
-    </thead>
-    <tbody id="show_data">
-
-    </tbody>
-</table>
+      </thead>
+    </table>
+  </div>
+<!-- </div> -->
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        tampil_data_akun(); //pemanggilan fungsi tampil barang.
-
-        $('#mydata').DataTable();
-
-        //fungsi tampil barang
-        function tampil_data_akun() {
-            $.ajax({
-                type: 'GET',
-                url: '<?php echo base_url('AkunController/data_akun') ?>',
-                async: true,
-                dataType: 'json',
-                success: function(data) {
-                    var html = '';
-                    var i;
-                    for (i = 0; i < data.length; i++) {
-                        html += '<tr>' +
-                            '<td>' + data[i].username + '</td>' +
-                            '<td>' + data[i].password + '</td>' +
-                            '<td>' + data[i].hak_akses + '</td>' +
-                            '</tr>';
-                    }
-                    $('#show_data').html(html);
-                    console.log(html);
-                }
-
-            });
+  $(document).ready(function() {
+    $('#mydata').DataTable({
+      "ordering": true,
+      "order": [
+        [2, 'asc']
+      ],
+      "ajax": {
+        "url": "<?= site_url('AkunController/data_akun') ?>",
+        "type": "GET",
+        "dataSrc": ""
+      },
+      "columns": [{
+          "data": "username"
+        },
+        {
+          "data": "password"
+        },
+        {
+          "data": "hak_akses"
         }
-
+      ]
     });
+  });
 </script>
