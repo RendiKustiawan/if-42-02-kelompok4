@@ -1,4 +1,5 @@
-<div class="col p-5">
+<div class="p-5">
+  <h1 class="text-center"><?= $title ?></h1>
   <div class="table-responsive container" style="width: 100%;">
     <table class="table table-dark table-hover table-bordered" id="mydata">
       <thead>
@@ -10,12 +11,13 @@
       </thead>
     </table>
   </div>
-<!-- </div> -->
+</div>
 
 
 <script type="text/javascript">
   $(document).ready(function() {
     $('#mydata').DataTable({
+      "searching": false,
       "ordering": true,
       "order": [
         [2, 'asc']

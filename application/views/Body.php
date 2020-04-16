@@ -24,9 +24,11 @@
     $this->load->view('template/TopNav');
     ?>
     <div class="dashboard-wrapper container-fluid">
-      <div class="row">
+      <div class="row d-flex align-items-stretch">
         <?php $this->load->view('template/SideNav'); ?>
-        <?php $this->load->view($main_view); ?>
+        <div class="col">
+          <?php $this->load->view($main_view); ?>
+        </div>
       </div>
     </div>
   <?php
