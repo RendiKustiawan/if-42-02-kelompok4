@@ -9,4 +9,6 @@ class AkunModel extends CI_Model
 
         return $query->result();
     }
+
+    
 }
