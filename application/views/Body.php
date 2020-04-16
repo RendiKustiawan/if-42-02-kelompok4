@@ -9,7 +9,6 @@
   <link href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="<?= base_url('assets/css/custom.css') ?>">
   <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-
   <title><?= $title ?></title>
 
   <script src="http://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
@@ -25,8 +24,10 @@
     ?>
     <div class="dashboard-wrapper container-fluid">
       <div class="row d-flex align-items-stretch">
-        <?php $this->load->view('template/SideNav');
-          $this->load->view($main_view); ?>
+        <?php $this->load->view('template/SideNav'); ?>
+        <div class="col">
+          <?php $this->load->view($main_view); ?>
+        </div>
       </div>
     </div>
   <?php
