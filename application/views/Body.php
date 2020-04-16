@@ -17,11 +17,20 @@
 
 <body>
   <?php
-   if ($title != "Welcome to Posyandu" && $title != "Sign In" && $title != "Sign Up") { 
-    $this->load->view('template/TopNav.php');
-   } 
-   ?>
-  <?php $this->load->view($main_view) ?>
+  if ($this->session->userdata('username')) {
+    $this->load->view('template/TopNav');
+  ?>
+    <div class="dashboard-wrapper container-fluid">
+      <div class="row d-flex align-items-stretch">
+      <?php $this->load->view('template/SideNav');
+      $this->load->view($main_view); ?>
+      </div>
+    </div>
+  <?php
+  } else {
+    $this->load->view($main_view);
+  }
+  ?>
 </body>
 
 </html>
