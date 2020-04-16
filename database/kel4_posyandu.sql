@@ -2,10 +2,10 @@
 -- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 12, 2020 at 05:57 PM
+-- Host: localhost
+-- Generation Time: Apr 17, 2020 at 01:32 AM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.2
+-- PHP Version: 7.2.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -34,6 +34,21 @@ CREATE TABLE `admin` (
   `nama_admin` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id_admin`, `username`, `nama_admin`) VALUES
+(1, 'admin', 'admin');
+
+--
+-- Triggers `admin`
+--
+DELIMITER $$
+CREATE TRIGGER `delete_admin` AFTER DELETE ON `admin` FOR EACH ROW DELETE FROM akun WHERE username=old.username
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -43,7 +58,7 @@ CREATE TABLE `admin` (
 CREATE TABLE `akun` (
   `id_akun` int(20) NOT NULL,
   `username` varchar(30) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` varchar(256) NOT NULL,
   `hak_akses` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -52,7 +67,9 @@ CREATE TABLE `akun` (
 --
 
 INSERT INTO `akun` (`id_akun`, `username`, `password`, `hak_akses`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1);
+(7, 'admin', '$2y$12$AEPlM51ZihKxXEa9wxuopuGBkEjE5O/hdi2OxmKDPlVywGroZnMNS', 1),
+(8, 'rayhan', '$2y$10$KbRET63bZBwZo7.14lEl6eIwwYXk26T2JISplyWHf8ammN7wMyDte', 3),
+(10, 'dokter', '$2y$12$6tI4VcYkA3rvCb5WaY9u1.zf7xzOdLPAgE8cA5xWcMGkBfPFwHN06', 2);
 
 -- --------------------------------------------------------
 
@@ -67,6 +84,21 @@ CREATE TABLE `dokter` (
   `spesialis` varchar(20) NOT NULL,
   `lama_bekerja` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `dokter`
+--
+
+INSERT INTO `dokter` (`id_dokter`, `username`, `nama_dokter`, `spesialis`, `lama_bekerja`) VALUES
+(3, 'dokter', 'dokter', 'Anak - Anak', '2 Tahun');
+
+--
+-- Triggers `dokter`
+--
+DELIMITER $$
+CREATE TRIGGER `delete_dokter` AFTER DELETE ON `dokter` FOR EACH ROW DELETE FROM akun WHERE username=old.username
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -91,6 +123,21 @@ CREATE TABLE `pasien_user` (
   `nip` int(30) NOT NULL,
   `nama_pasien` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pasien_user`
+--
+
+INSERT INTO `pasien_user` (`username`, `nip`, `nama_pasien`) VALUES
+('rayhan', 1301180161, 'Rayhan Hakim');
+
+--
+-- Triggers `pasien_user`
+--
+DELIMITER $$
+CREATE TRIGGER `delete_pasien` AFTER DELETE ON `pasien_user` FOR EACH ROW DELETE FROM akun WHERE username=old.username
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -165,19 +212,19 @@ ALTER TABLE `tabel_pendaftar_imunisasi`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id_admin` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_admin` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `akun`
 --
 ALTER TABLE `akun`
-  MODIFY `id_akun` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_akun` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id_dokter` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_dokter` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `jadwal_imunisasi`
@@ -189,7 +236,7 @@ ALTER TABLE `jadwal_imunisasi`
 -- AUTO_INCREMENT for table `pasien_user`
 --
 ALTER TABLE `pasien_user`
-  MODIFY `nip` int(30) NOT NULL AUTO_INCREMENT;
+  MODIFY `nip` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1301180163;
 
 --
 -- AUTO_INCREMENT for table `tabel_pendaftar_imunisasi`
