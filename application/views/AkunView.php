@@ -7,6 +7,7 @@
           <th>Username</th>
           <th>Password</th>
           <th>Hak Akses</th>
+          <th>Aksi</th>
         </tr>
       </thead>
     </table>
@@ -35,6 +36,12 @@
         },
         {
           "data": "hak_akses"
+        },
+        {
+          "data": "hak_akses",
+          "render": function(data, type, row) {
+              return data != 1 ? `<button class="btn btn-danger" onclick="alert(${data})"><i class="fas fa-trash"></i></button>`: '';
+          }
         }
       ]
     });

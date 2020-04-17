@@ -17,6 +17,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $('#mydata').DataTable({
+      "searching": false,
       "ordering": true,
       "order": [
         [0, 'asc']

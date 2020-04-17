@@ -12,10 +12,16 @@
         Welcome!
         <?= $this->session->userdata('nama') ?>
       </a>
-      <div class="d-none" id="floatingMenu">
-        <a href="<?= site_url('PasienController') ?>">Profile</a>
-        <a href="<?= site_url('Landing/logout') ?>">logout</a>
-      </div>
+      <?php if ($this->session->userdata('hak_akses') == 3) { ?>
+        <div class="d-none" id="floatingMenu">
+          <a href="<?= site_url('PasienController') ?>">Profile</a>
+          <a href="<?= site_url('Landing/logout') ?>">logout</a>
+        </div>
+      <?php } else { ?>
+        <div class="d-none" id="floatingMenu">
+          <a href="<?= site_url('Landing/logout') ?>">logout</a>
+        </div>
+      <?php } ?>
     </li>
   </ul>
 </nav>

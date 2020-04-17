@@ -186,8 +186,8 @@ a:hover {
 
 .dashboard-navbar .navbar-nav #floatingMenu {
 	position: absolute;
-	bottom: -60px;
-	right: 0;
+	/* bottom: -60px; */
+	left: -50px;
 	width: 180px;
 	background-color: white;
 	border-radius: 5px;
