@@ -1,4 +1,4 @@
-<div class="col p-5">
+<div class="py-5">
   <div class="table-responsive container">
     <table class="table table-dark table-hover table-bordered" id="mydata" style="width: 100%">
       <thead>
