@@ -9,7 +9,10 @@ class JadwalModel extends CI_Model {
 
         return $query->result();
     }
-
+    public function deleteJadwal($id_jadwal) {
+        $this->db->where('id_jadwal', $id_jadwal);
+        return $this->db->delete('jadwal_imunisasi');
+    }
 
 }
 
