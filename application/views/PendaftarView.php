@@ -1,13 +1,13 @@
 <div class="col p-5">
-  <div class="table-responsive container" style="width: 100%;">
-    <table class="table table-dark table-hover table-bordered" id="mydata">
+  <div class="table-responsive container">
+    <table class="table table-dark table-hover table-bordered" id="mydata" style="width: 100%">
       <thead>
         <tr>
           <th>NIP</th>
-          <th>No_Antrian</th>
-          <th>Usia_Anak</th>
-          <th>Tinggi_Anak</th>
-          <th>Berat_Anak</th>
+          <th>No Antrian</th>
+          <th>Usia Anak</th>
+          <th>Tinggi Anak</th>
+          <th>Berat Anak</th>
           <th>Keluhan</th>
           <th>Aksi</th>
           <!-- <?php if ($this->session->userdata("hak_akses") == 3) {
