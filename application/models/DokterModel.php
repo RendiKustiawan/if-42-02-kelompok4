@@ -9,6 +9,10 @@ class DokterModel extends CI_Model {
 
         return $query->result();
     }
+    public function deleteDokter($username) {
+        $this->db->where('username', $username);
+        return $this->db->delete('akun');
+    }
 
 
 }

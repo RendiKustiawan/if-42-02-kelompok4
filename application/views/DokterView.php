@@ -8,6 +8,7 @@
           <th>Nama Dokter</th>
           <th>Spesialis</th>
           <th>Lama Bekerja</th>
+          <th>Aksi</th>
         </tr>
       </thead>
     </table>
@@ -17,7 +18,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#mydata').DataTable({
+    let table = $('#mydata').DataTable({
       "searching": false,
       "ordering": true,
       "order": [
@@ -39,8 +40,30 @@
         },
         {
           "data": "lama_bekerja"
+        },
+        {
+          "data": "username",
+          "render": function(data, type, row) {
+            return `<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-whatever="${data}"><i class="fas fa-trash"></i></button>`
+          }
         }
       ]
+    });
+
+    $('#deleteModal').on('show.bs.modal', function(event) {
+      let username = $(event.relatedTarget).data('whatever');
+      let modal = $(this)
+      modal.find('#dataName').text(username)
+      $('#deleteButton').on('click', function() {
+        $.ajax({
+          url: `<?= base_url('DokterController/delete_dokter/') ?>${username}`,
+          type: "GET",
+          async: true,
+          dataType: "JSON",
+        })
+        table.ajax.reload();
+        $("#deleteModal").modal('hide');
+      })
     });
   });
 </script>
