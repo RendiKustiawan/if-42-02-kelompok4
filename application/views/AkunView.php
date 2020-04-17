@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#mydata').DataTable({
+    let table = $('#mydata').DataTable({
       "searching": false,
       "ordering": true,
       "order": [
@@ -40,10 +40,26 @@
         {
           "data": "hak_akses",
           "render": function(data, type, row) {
-              return data != 1 ? `<button class="btn btn-danger" onclick="alert(${data})"><i class="fas fa-trash"></i></button>`: '';
+            return data != 1 ? `<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-whatever="${row.username}"><i class="fas fa-trash"></i></button>` : '';
           }
         }
       ]
+    });
+
+    $('#deleteModal').on('show.bs.modal', function(event) {
+      let username = $(event.relatedTarget).data('whatever');
+      let modal = $(this)
+      modal.find('#dataName').text(username)
+      $('#deleteButton').on('click', function() {
+        $.ajax({
+          url: `<?= base_url('AkunController/delete_akun/') ?>${username}`,
+          type: "GET",
+          async: true,
+          dataType: "JSON",
+        })
+        table.ajax.reload();
+        $("#deleteModal").modal('hide');
+      })
     });
   });
 </script>

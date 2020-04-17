@@ -10,5 +10,9 @@ class AkunModel extends CI_Model
         return $query->result();
     }
 
-    
+    public function delete_akun($username)
+    {
+        $this->db->where('username', $username);
+        return $this->db->delete('akun');
+    }
 }

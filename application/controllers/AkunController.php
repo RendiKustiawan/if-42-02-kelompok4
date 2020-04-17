@@ -23,4 +23,9 @@ class AkunController extends CI_Controller
 
         echo json_encode($data);
     }
+
+    public function delete_akun($username)
+    {
+        $this->AkunModel->delete_akun($username);
+    }
 }
