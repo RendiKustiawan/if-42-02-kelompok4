@@ -22,12 +22,33 @@
   <?php
   if ($this->session->userdata('username')) {
     $this->load->view('template/TopNav');
-    ?>
+  ?>
     <div class="dashboard-wrapper container-fluid">
       <div class="row d-flex align-items-stretch">
         <?php $this->load->view('template/SideNav'); ?>
         <div class="col">
           <?php $this->load->view($main_view); ?>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirm Data Deletion</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete <span id="dataName"></span> ? </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="deleteButton">Confirm</button>
+          </div>
         </div>
       </div>
     </div>

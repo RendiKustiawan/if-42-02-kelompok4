@@ -17,10 +17,15 @@ class PasienController extends CI_Controller
         $this->load->view('Body', $content);
     }
 
-    public function data_pasien()
+    public function all_data_pasien()
     {
-        $data = $this->PasienModel->GetPasien();
+        $data = $this->PasienModel->GetAllPasien();
 
         echo json_encode($data);
+    }
+
+    public function delete_pasien($username) {
+        $this->PasienModel->deletePasien($username);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data '.$username.' Berhasil Dihapus</div>');
     }
 }

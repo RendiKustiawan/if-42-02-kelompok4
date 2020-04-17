@@ -1,47 +1,37 @@
-<table class="table table-striped" id="mydata">
-    <thead>
+<div class="p-5">
+  <h1 class="text-center"><?= $title ?></h1>
+  <div class="table-responsive container" style="width: 100%;">
+    <table class="table table-dark table-hover table-bordered" id="mydata">
+      <thead>
         <tr>
-            <th>ID Admin</th>
-            <th>Username</th>
-            <th>Nama Admin</th>
-            <th>Aksi</th>
+          <th>Username</th>
+          <th>Nama Admin</th>
         </tr>
-    </thead>
-    <tbody id="show_data">
-
-    </tbody>
-</table>
-
+      </thead>
+    </table>
+  </div>
+</div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        tampil_data_admin(); //pemanggilan fungsi tampil barang.
-
-        $('#mydata').DataTable();
-
-        //fungsi tampil barang
-        function tampil_data_admin() {
-            $.ajax({
-                type: 'GET',
-                url: '<?php echo base_url('AdminController/data_admin') ?>',
-                async: true,
-                dataType: 'json',
-                success: function(data) {
-                    var html = '';
-                    var i;
-                    for (i = 0; i < data.length; i++) {
-                        html += '<tr>' +
-                            '<td>' + data[i].id_admin + '</td>' +
-                            '<td>' + data[i].username + '</td>' +
-                            '<td>' + data[i].nama_admin + '</td>' +
-                            '</tr>';
-                    }
-                    $('#show_data').html(html);
-                    console.log(html);
-                }
-
-            });
+  $(document).ready(function() {
+    let table = $('#mydata').DataTable({
+      "searching": false,
+      "ordering": true,
+      "order": [
+        [0, 'asc']
+      ],
+      "ajax": {
+        "url": "<?= base_url('AdminController/data_admin') ?>",
+        "type": "GET",
+        "dataSrc": ""
+      },
+      "columns": [{
+          "data": "username"
+        },
+        {
+          "data": "nama_admin"
         }
-
+      ]
     });
+  });
 </script>

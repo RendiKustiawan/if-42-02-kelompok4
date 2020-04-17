@@ -1,47 +1,64 @@
-<table class="table table-striped" id="mydata">
-    <thead>
+<div class="p-5">
+  <h1 class="text-center"><?= $title ?></h1>
+  <div class="table-responsive container" style="width: 100%;">
+    <table class="table table-dark table-hover table-bordered" id="mydata">
+      <thead>
         <tr>
-            <th>Username</th>
-            <th>NIP</th>
-            <th>Nama Pasien</th>
-            <th>Aksi</th>
+          <th>Username</th>
+          <th>NIP</th>
+          <th>Nama Pasien</th>
+          <th>Aksi</th>
         </tr>
-    </thead>
-    <tbody id="show_data">
-
-    </tbody>
-</table>
-
+      </thead>
+    </table>
+  </div>
+</div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        tampil_data_pasien(); //pemanggilan fungsi tampil barang.
-
-        $('#mydata').DataTable();
-
-        //fungsi tampil barang
-        function tampil_data_pasien() {
-            $.ajax({
-                type: 'GET',
-                url: '<?php echo base_url('PasienController/data_pasien') ?>',
-                async: true,
-                dataType: 'json',
-                success: function(data) {
-                    var html = '';
-                    var i;
-                    for (i = 0; i < data.length; i++) {
-                        html += '<tr>' +
-                            '<td>' + data[i].username + '</td>' +
-                            '<td>' + data[i].nip + '</td>' +
-                            '<td>' + data[i].nama_pasien + '</td>' +
-                            '</tr>';
-                    }
-                    $('#show_data').html(html);
-                    console.log(html);
-                }
-
-            });
+  $(document).ready(function() {
+    let table = $('#mydata').DataTable({
+      "searching": false,
+      "ordering": true,
+      "order": [
+        [1, 'asc']
+      ],
+      "ajax": {
+        "url": "<?= base_url('PasienController/all_data_pasien') ?>",
+        "type": "GET",
+        "dataSrc": ""
+      },
+      "columns": [{
+          "data": "username"
+        },
+        {
+          "data": "nip"
+        },
+        {
+          "data": "nama_pasien"
+        },
+        {
+          "data": "username",
+          "render": function(data, type, row) {
+            return `<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-whatever="${data}"><i class="fas fa-trash"></i></button>`
+          }
         }
-
+      ]
     });
+
+    $('#deleteModal').on('show.bs.modal', function(event) {
+      let username = $(event.relatedTarget).data('whatever');
+      let modal = $(this)
+      modal.find('#dataName').text(username)
+      $('#deleteButton').on('click', function() {
+        $.ajax({
+          url: `<?= base_url('PasienController/delete_pasien/') ?>${username}`,
+          type: "GET",
+          async: true,
+          dataType: "JSON",
+        })
+        table.ajax.reload();
+        $("#deleteModal").modal('hide');
+      })
+    });
+  });
 </script>
