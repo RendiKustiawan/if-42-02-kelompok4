@@ -12,7 +12,7 @@ class PendaftarController extends CI_Controller
     public function index()
     {
         $content['main_view'] = 'PendaftarView';
-        $content['title'] = 'Data Pendaftar';
+        $content['title'] = 'Data Pendaftaran';
 
         $this->load->view('Body', $content);
     }
