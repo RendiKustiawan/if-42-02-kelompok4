@@ -29,8 +29,9 @@
           "data": "username"
         },
         {
-          "data": "nama_admin"
+          "data": "nama"
         }
+
       ]
     });
   });

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 17, 2020 at 01:32 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.2.27
+-- Host: 127.0.0.1
+-- Generation Time: Apr 17, 2020 at 05:31 PM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,15 +31,15 @@ SET time_zone = "+00:00";
 CREATE TABLE `admin` (
   `id_admin` int(20) NOT NULL,
   `username` varchar(30) NOT NULL,
-  `nama_admin` varchar(30) NOT NULL
+  `nama` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id_admin`, `username`, `nama_admin`) VALUES
-(1, 'admin', 'admin');
+INSERT INTO `admin` (`id_admin`, `username`, `nama`) VALUES
+(345, 'admin', 'admin');
 
 --
 -- Triggers `admin`
@@ -67,9 +67,9 @@ CREATE TABLE `akun` (
 --
 
 INSERT INTO `akun` (`id_akun`, `username`, `password`, `hak_akses`) VALUES
-(7, 'admin', '$2y$12$AEPlM51ZihKxXEa9wxuopuGBkEjE5O/hdi2OxmKDPlVywGroZnMNS', 1),
-(8, 'rayhan', '$2y$10$KbRET63bZBwZo7.14lEl6eIwwYXk26T2JISplyWHf8ammN7wMyDte', 3),
-(10, 'dokter', '$2y$12$6tI4VcYkA3rvCb5WaY9u1.zf7xzOdLPAgE8cA5xWcMGkBfPFwHN06', 2);
+(345, 'admin', '$2y$12$4zhccPrBIbj0Ds7Q6iSuiORtarZr7biV41WMmIKgiHdyCFtEWobHW', 1),
+(349, 'mhmdzaky', '$2y$10$ELHTYgdQbBGAfNxDRgHSpeLTvh3BefDU/E0THyhgWZe5.11DTdTjq', 3),
+(350, 'jek', '$2y$10$NYTyUS9jvqUP5UI3vGSj0.XDwKqvSb1XvP0AQTrYnkixz1DWhg2HO', 3);
 
 -- --------------------------------------------------------
 
@@ -80,17 +80,10 @@ INSERT INTO `akun` (`id_akun`, `username`, `password`, `hak_akses`) VALUES
 CREATE TABLE `dokter` (
   `id_dokter` int(10) NOT NULL,
   `username` varchar(30) NOT NULL,
-  `nama_dokter` varchar(30) NOT NULL,
+  `nama` varchar(30) NOT NULL,
   `spesialis` varchar(20) NOT NULL,
   `lama_bekerja` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `dokter`
---
-
-INSERT INTO `dokter` (`id_dokter`, `username`, `nama_dokter`, `spesialis`, `lama_bekerja`) VALUES
-(3, 'dokter', 'dokter', 'Anak - Anak', '2 Tahun');
 
 --
 -- Triggers `dokter`
@@ -109,7 +102,7 @@ DELIMITER ;
 CREATE TABLE `jadwal_imunisasi` (
   `id_jadwal` int(10) NOT NULL,
   `id_dokter` int(10) NOT NULL,
-  `tanggal` text NOT NULL
+  `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -121,15 +114,16 @@ CREATE TABLE `jadwal_imunisasi` (
 CREATE TABLE `pasien_user` (
   `username` varchar(30) NOT NULL,
   `nip` int(30) NOT NULL,
-  `nama_pasien` varchar(30) NOT NULL
+  `nama` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pasien_user`
 --
 
-INSERT INTO `pasien_user` (`username`, `nip`, `nama_pasien`) VALUES
-('rayhan', 1301180161, 'Rayhan Hakim');
+INSERT INTO `pasien_user` (`username`, `nip`, `nama`) VALUES
+('jek', 123123, 'jek'),
+('mhmdzaky', 1301184260, 'Muhammad Zaky Aonillah');
 
 --
 -- Triggers `pasien_user`
@@ -153,7 +147,6 @@ CREATE TABLE `tabel_pendaftar_imunisasi` (
   `usia_anak` int(3) NOT NULL,
   `tinggi_anak` int(3) NOT NULL,
   `berat_anak` int(3) NOT NULL,
-  `sesi` int(1) NOT NULL,
   `keluhan` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -187,7 +180,7 @@ ALTER TABLE `dokter`
 --
 ALTER TABLE `jadwal_imunisasi`
   ADD PRIMARY KEY (`id_jadwal`),
-  ADD UNIQUE KEY `id_dokter` (`id_dokter`);
+  ADD KEY `id_dokter` (`id_dokter`) USING BTREE;
 
 --
 -- Indexes for table `pasien_user`
@@ -201,8 +194,8 @@ ALTER TABLE `pasien_user`
 --
 ALTER TABLE `tabel_pendaftar_imunisasi`
   ADD PRIMARY KEY (`id_tabel_pendaftar`),
-  ADD UNIQUE KEY `nip` (`nip`),
-  ADD UNIQUE KEY `id_jadwal` (`id_jadwal`);
+  ADD UNIQUE KEY `id_jadwal` (`id_jadwal`),
+  ADD KEY `nip` (`nip`) USING BTREE;
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -212,37 +205,37 @@ ALTER TABLE `tabel_pendaftar_imunisasi`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id_admin` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_admin` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=346;
 
 --
 -- AUTO_INCREMENT for table `akun`
 --
 ALTER TABLE `akun`
-  MODIFY `id_akun` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_akun` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=351;
 
 --
 -- AUTO_INCREMENT for table `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id_dokter` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_dokter` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
 -- AUTO_INCREMENT for table `jadwal_imunisasi`
 --
 ALTER TABLE `jadwal_imunisasi`
-  MODIFY `id_jadwal` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jadwal` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=324;
 
 --
 -- AUTO_INCREMENT for table `pasien_user`
 --
 ALTER TABLE `pasien_user`
-  MODIFY `nip` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1301180163;
+  MODIFY `nip` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1301184261;
 
 --
 -- AUTO_INCREMENT for table `tabel_pendaftar_imunisasi`
 --
 ALTER TABLE `tabel_pendaftar_imunisasi`
-  MODIFY `id_tabel_pendaftar` int(30) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tabel_pendaftar` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=325;
 
 --
 -- Constraints for dumped tables

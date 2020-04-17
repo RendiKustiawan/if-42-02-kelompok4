@@ -23,4 +23,7 @@ class DokterController extends CI_Controller
 
         echo json_encode($data);
     }
+    public function delete_dokter($username) {
+        $this->DokterModel->deleteDokter($username);
+    }
 }

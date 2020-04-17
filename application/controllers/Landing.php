@@ -36,7 +36,8 @@ class Landing extends CI_Controller
 		$this->load->view('Body', $content);
 	}
 
-	public function logout() {
+	public function logout()
+	{
 		session_destroy();
 		redirect(base_url());
 	}
@@ -74,21 +75,21 @@ class Landing extends CI_Controller
 					$user = $this->db->get_where('pasien_user', ['username' => $username])->row_array();
 					$data = [
 						'username' => $user['username'],
-						'nama' => $user['nama_pasien'],
+						'nama' => $user['nama'],
 						'hak_akses' => $query['hak_akses']
 					];
 				} else if ($query['hak_akses'] == 2) {
 					$user = $this->db->get_where('dokter', ['username' => $username])->row_array();
 					$data = [
 						'username' => $user['username'],
-						'nama' => $user['nama_dokter'],
+						'nama' => $user['nama'],
 						'hak_akses' => $query['hak_akses']
 					];
 				} else {
 					$user = $this->db->get_where('admin', ['username' => $username])->row_array();
 					$data = [
 						'username' => $user['username'],
-						'nama' => $user['nama_admin'],
+						'nama' => $user['nama'],
 						'hak_akses' => $query['hak_akses']
 					];
 				}
@@ -136,7 +137,7 @@ class Landing extends CI_Controller
 			$data2 = [
 				'username' => $this->input->post('username', true),
 				'nip' => $this->input->post('nip', true),
-				'nama_pasien' => $this->input->post('name', true)
+				'nama' => $this->input->post('name', true)
 
 
 			];
@@ -149,14 +150,15 @@ class Landing extends CI_Controller
 		}
 	}
 
-	public function dashboard() {
+	public function dashboard()
+	{
 		if ($this->session->userdata('username')) {
 			$content['title'] = 'Dashboard';
 			$content['main_view'] = 'DashboardView';
 			$this->load->view('Body', $content);
 		} else {
 			echo "You need to log in first! Redirecting in 5 seconds";
-			header('Refresh:5; url='.base_url('Landing'));
+			header('Refresh:5; url=' . base_url('Landing'));
 		}
 	}
 }

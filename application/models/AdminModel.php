@@ -9,4 +9,16 @@ class AdminModel extends CI_Model
 
         return $query->result();
     }
+
+    public function deletePasien($username)
+    {
+        $this->db->where('username', $username);
+        return $this->db->delete('akun');
+    }
+
+    public function deleteDokter($username)
+    {
+        $this->db->where('username', $username);
+        return $this->db->delete('akun');
+    }
 }

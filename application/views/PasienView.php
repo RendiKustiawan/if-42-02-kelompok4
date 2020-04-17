@@ -34,7 +34,7 @@
           "data": "nip"
         },
         {
-          "data": "nama_pasien"
+          "data": "nama"
         },
         {
           "data": "username",

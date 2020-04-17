@@ -8,4 +8,9 @@ class PendaftarModel extends CI_Model
         $query = $this->db->query('SELECT * FROM tabel_pendaftar_imunisasi');
         return $query->result();
     }
+
+    public function deletePendaftar($id_tabel_pendaftar) {
+        $this->db->where('id_tabel_pendaftar', $id_tabel_pendaftar);
+        return $this->db->delete('tabel_pendaftar_imunisasi');
+    }
 }

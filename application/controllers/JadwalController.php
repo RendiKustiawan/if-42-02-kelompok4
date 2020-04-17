@@ -23,4 +23,7 @@ class JadwalController extends CI_Controller
 
         echo json_encode($data);
     }
+    public function delete_jadwal($id_jadwal) {
+        $this->JadwalModel->deleteJadwal($id_jadwal);
+    }
 }
