@@ -1,11 +1,11 @@
-<div class="p-5">
+<div class="py-5">
   <h1 class="text-center"><?= $title ?></h1>
-  <div class="table-responsive container" style="width: 100%;">
-    <table class="table table-dark table-hover table-bordered" id="mydata">
+  <div class="table-responsive container">
+    <table class="table table-dark table-hover table-bordered" id="mydata" style="width: 100%;">
       <thead>
         <tr>
           <th>Username</th>
-          <th>Password</th>
+          <th>Nama User</th>
           <th>Hak Akses</th>
           <th>Aksi</th>
         </tr>
@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#mydata').DataTable({
+    let table = $('#mydata').DataTable({
       "searching": false,
       "ordering": true,
       "order": [
@@ -32,7 +32,7 @@
           "data": "username"
         },
         {
-          "data": "password"
+          "data": "nama"
         },
         {
           "data": "hak_akses"
@@ -40,10 +40,26 @@
         {
           "data": "hak_akses",
           "render": function(data, type, row) {
-              return data != 1 ? `<button class="btn btn-danger" onclick="alert(${data})"><i class="fas fa-trash"></i></button>`: '';
+            return data != 1 ? `<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-whatever="${row.username}"><i class="fas fa-trash"></i></button>` : '';
           }
         }
       ]
+    });
+
+    $('#deleteModal').on('show.bs.modal', function(event) {
+      let username = $(event.relatedTarget).data('whatever');
+      let modal = $(this)
+      modal.find('#dataName').text(username)
+      $('#deleteButton').on('click', function() {
+        $.ajax({
+          url: `<?= base_url('AkunController/delete_akun/') ?>${username}`,
+          type: "GET",
+          async: true,
+          dataType: "JSON",
+        })
+        table.ajax.reload();
+        $("#deleteModal").modal('hide');
+      })
     });
   });
 </script>

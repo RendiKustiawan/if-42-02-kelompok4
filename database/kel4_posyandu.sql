@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2020 at 03:35 PM
+-- Generation Time: Apr 17, 2020 at 05:31 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -31,14 +31,14 @@ SET time_zone = "+00:00";
 CREATE TABLE `admin` (
   `id_admin` int(20) NOT NULL,
   `username` varchar(30) NOT NULL,
-  `nama_admin` varchar(30) NOT NULL
+  `nama` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id_admin`, `username`, `nama_admin`) VALUES
+INSERT INTO `admin` (`id_admin`, `username`, `nama`) VALUES
 (345, 'admin', 'admin');
 
 --
@@ -67,9 +67,9 @@ CREATE TABLE `akun` (
 --
 
 INSERT INTO `akun` (`id_akun`, `username`, `password`, `hak_akses`) VALUES
-(123, 'dokter', '$2y$12$PReOFPLn03fIz3YD5J1vXeFxqcoss3iDx9qfW8844bNNpow5sVTdq', 2),
 (345, 'admin', '$2y$12$4zhccPrBIbj0Ds7Q6iSuiORtarZr7biV41WMmIKgiHdyCFtEWobHW', 1),
-(346, 'rendik', '$2y$10$wQ6vEGV20riF.9qnAc018.kL3.liMWpxGz7SXB7DWy7GpH1Uom2Ra', 3);
+(349, 'mhmdzaky', '$2y$10$ELHTYgdQbBGAfNxDRgHSpeLTvh3BefDU/E0THyhgWZe5.11DTdTjq', 3),
+(350, 'jek', '$2y$10$NYTyUS9jvqUP5UI3vGSj0.XDwKqvSb1XvP0AQTrYnkixz1DWhg2HO', 3);
 
 -- --------------------------------------------------------
 
@@ -80,17 +80,10 @@ INSERT INTO `akun` (`id_akun`, `username`, `password`, `hak_akses`) VALUES
 CREATE TABLE `dokter` (
   `id_dokter` int(10) NOT NULL,
   `username` varchar(30) NOT NULL,
-  `nama_dokter` varchar(30) NOT NULL,
+  `nama` varchar(30) NOT NULL,
   `spesialis` varchar(20) NOT NULL,
   `lama_bekerja` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `dokter`
---
-
-INSERT INTO `dokter` (`id_dokter`, `username`, `nama_dokter`, `spesialis`, `lama_bekerja`) VALUES
-(123, 'dokter', 'Rendi Kustiawan', 'Anak', '10 tahun');
 
 --
 -- Triggers `dokter`
@@ -112,14 +105,6 @@ CREATE TABLE `jadwal_imunisasi` (
   `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `jadwal_imunisasi`
---
-
-INSERT INTO `jadwal_imunisasi` (`id_jadwal`, `id_dokter`, `tanggal`) VALUES
-(321, 123, '2020-04-01'),
-(323, 123, '2020-04-02');
-
 -- --------------------------------------------------------
 
 --
@@ -129,15 +114,16 @@ INSERT INTO `jadwal_imunisasi` (`id_jadwal`, `id_dokter`, `tanggal`) VALUES
 CREATE TABLE `pasien_user` (
   `username` varchar(30) NOT NULL,
   `nip` int(30) NOT NULL,
-  `nama_pasien` varchar(30) NOT NULL
+  `nama` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pasien_user`
 --
 
-INSERT INTO `pasien_user` (`username`, `nip`, `nama_pasien`) VALUES
-('rendik', 102938, 'Rendi Kustiawan');
+INSERT INTO `pasien_user` (`username`, `nip`, `nama`) VALUES
+('jek', 123123, 'jek'),
+('mhmdzaky', 1301184260, 'Muhammad Zaky Aonillah');
 
 --
 -- Triggers `pasien_user`
@@ -163,13 +149,6 @@ CREATE TABLE `tabel_pendaftar_imunisasi` (
   `berat_anak` int(3) NOT NULL,
   `keluhan` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tabel_pendaftar_imunisasi`
---
-
-INSERT INTO `tabel_pendaftar_imunisasi` (`id_tabel_pendaftar`, `nip`, `id_jadwal`, `no_antrian`, `usia_anak`, `tinggi_anak`, `berat_anak`, `keluhan`) VALUES
-(324, 102938, 323, 2, 11, 20, 10, 'gaada');
 
 --
 -- Indexes for dumped tables
@@ -232,7 +211,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `akun`
 --
 ALTER TABLE `akun`
-  MODIFY `id_akun` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=347;
+  MODIFY `id_akun` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=351;
 
 --
 -- AUTO_INCREMENT for table `dokter`
@@ -250,7 +229,7 @@ ALTER TABLE `jadwal_imunisasi`
 -- AUTO_INCREMENT for table `pasien_user`
 --
 ALTER TABLE `pasien_user`
-  MODIFY `nip` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1301180163;
+  MODIFY `nip` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1301184261;
 
 --
 -- AUTO_INCREMENT for table `tabel_pendaftar_imunisasi`

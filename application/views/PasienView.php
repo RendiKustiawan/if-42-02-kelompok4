@@ -1,7 +1,7 @@
-<div class="p-5">
+<div class="py-5">
   <h1 class="text-center"><?= $title ?></h1>
-  <div class="table-responsive container" style="width: 100%;">
-    <table class="table table-dark table-hover table-bordered" id="mydata">
+  <div class="table-responsive container">
+    <table class="table table-dark table-hover table-bordered" id="mydata" style="width: 100%">
       <thead>
         <tr>
           <th>Username</th>
@@ -34,7 +34,7 @@
           "data": "nip"
         },
         {
-          "data": "nama_pasien"
+          "data": "nama"
         },
         {
           "data": "username",

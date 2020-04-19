@@ -144,8 +144,10 @@ a:hover {
 
 .side-nav-container a {
 	display: block;
-	padding: 16px;
+	padding: 10px 14px;
 	color: black;
+	margin: 8px;
+	border-radius: 25px;
 }
 
 .side-nav-container a.hide-nav {
@@ -157,13 +159,19 @@ a:hover {
 	color: white;
 }
 
+.side-nav-container a.active {
+	background-color: #adb7d9;
+	color: white;
+}
+
 .side-nav-container a i {
 	margin-right: 7px;
 }
 
 @media only screen and (max-width: 769px) {
-	.side-nav-wrapper {
+	.side-nav-wrapper#sideNav {
 		height: 300px;
+		width: 100%;
 	}
 }
 
@@ -173,7 +181,8 @@ a:hover {
 }
 
 .dashboard-brand {
-	width: 319.86px;
+	width: 16.66%;
+	background-color: #adb7d9
 }
 
 .dashboard-navbar .navbar-nav #menuUser {
@@ -187,7 +196,7 @@ a:hover {
 .dashboard-navbar .navbar-nav #floatingMenu {
 	position: absolute;
 	/* bottom: -60px; */
-	left: -50px;
+	right: 0;
 	width: 180px;
 	background-color: white;
 	border-radius: 5px;
@@ -199,10 +208,16 @@ a:hover {
 	padding: 5px 10px;
 }
 
+@media only screen and (max-width: 1256px) {
+	.dashboard-brand {
+		width: 25%;
+	}
+}
+
 @media only screen and (max-width: 769px) {
 	.dashboard-brand {
-		width: auto;
-		padding-right: 12px;
+		width: 100%;
+		background-color: white;
 	}
 
 	.dashboard-navbar {

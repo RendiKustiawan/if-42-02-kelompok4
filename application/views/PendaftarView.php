@@ -1,16 +1,18 @@
-<div class="col p-5">
-  <div class="table-responsive container" style="width: 100%;">
-    <table class="table table-dark table-hover table-bordered" id="mydata">
+<div class="py-5">
+  <div class="table-responsive container">
+    <table class="table table-dark table-hover table-bordered" id="mydata" style="width: 100%">
       <thead>
         <tr>
           <th>NIP</th>
-          <th>No_Antrian</th>
-          <th>Usia_Anak</th>
-          <th>Tinggi_Anak</th>
-          <th>Berat_Anak</th>
+          <th>No Antrian</th>
+          <th>Usia Anak</th>
+          <th>Tinggi Anak</th>
+          <th>Berat Anak</th>
           <th>Keluhan</th>
           <th>Aksi</th>
-          <!-- <?php if($this->session->userdata("hak_akses") == 3){echo"<th>Aksi</th>";} ?> -->
+          <!-- <?php if ($this->session->userdata("hak_akses") == 3) {
+                  echo "<th>Aksi</th>";
+                } ?> -->
         </tr>
       </thead>
     </table>
@@ -52,8 +54,8 @@
         {
           "data": "id_tabel_pendaftar",
           "render": function(data, type, row) {
-            return <?= $this->session->userdata("hak_akses") ?> == 3 ?`<button class="btn btn-danger" data-toggle="modal"
-            data-target="#deleteModal" data-nip="${row.nip}"  data-antrian="${row.no_antrian}"  data-whatever="${data}"><i class="fas fa-trash"></i></button>`:""
+            return <?= $this->session->userdata("hak_akses") ?> == 3 ? `<button class="btn btn-danger" data-toggle="modal"
+            data-target="#deleteModal" data-nip="${row.nip}"  data-antrian="${row.no_antrian}"  data-whatever="${data}"><i class="fas fa-trash"></i></button>` : ""
           }
         }
       ]
@@ -64,7 +66,7 @@
       let nip = $(event.relatedTarget).data('nip');
       let no_antrian = $(event.relatedTarget).data('antrian');
       let modal = $(this)
-      modal.find('#dataName').text("nip "+ nip +" antrian "+ no_antrian);
+      modal.find('#dataName').text("nip " + nip + " antrian " + no_antrian);
       $('#deleteButton').on('click', function() {
         $.ajax({
           url: `<?= base_url('PendaftarController/delete_pendaftar/') ?>${id_tabel_pendaftar}`,
@@ -77,5 +79,5 @@
       })
     });
   });
-
+  })
 </script>

@@ -1,6 +1,7 @@
-<div class="col p-5">
-  <div class="table-responsive container" style="width: 100%;">
-    <table class="table table-dark table-hover table-bordered" id="mydata">
+<div class="py-5">
+  <h1 class="text-center"><?= $title ?></h1>
+  <div class="table-responsive container">
+    <table class="table table-dark table-hover table-bordered" id="mydata" style="width: 100%">
       <thead>
         <tr>
           <th>Jadwal</th>
@@ -12,7 +13,7 @@
       </thead>
     </table>
   </div>
-<!-- </div> -->
+</div>
 
 
 <script type="text/javascript">
@@ -31,7 +32,7 @@
           "data": "tanggal"
         },
         {
-          "data": "nama_dokter"
+          "data": "nama"
         },
         {
           "data": "spesialis"
