@@ -13,6 +13,21 @@ class DokterModel extends CI_Model {
         $this->db->where('username', $username);
         return $this->db->delete('akun');
     }
+    public function addJadwal($data)
+    {
+        $this->db->insert('jadwal_imunisasi', $data);
+        return $this->db->insert_id();
+    }
+    public function addAkun($data)
+    {
+        $this->db->insert('akun', $data);
+        return $this->db->insert_id();
+    }
+    public function addDokter($data)
+    {
+        $this->db->insert('dokter', $data);
+        return $this->db->insert_id();
+    }
 
 
 }

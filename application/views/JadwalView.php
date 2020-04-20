@@ -1,6 +1,9 @@
 <div class="py-5">
   <h1 class="text-center"><?= $title ?></h1>
   <div class="table-responsive container">
+    <div class="d-flex justify-content-end px-3 mt-2">
+      <button type="button" class="btn btn-primary" id="tambah" data-toggle="modal" data-target="#tambahModal">Tambah <?= $title ?></button>
+    </div>
     <table class="table table-dark table-hover table-bordered" id="mydata" style="width: 100%">
       <thead>
         <tr>
