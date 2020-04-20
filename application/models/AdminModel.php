@@ -10,15 +10,15 @@ class AdminModel extends CI_Model
         return $query->result();
     }
 
-    public function deletePasien($username)
+    public function addAkun($data)
     {
-        $this->db->where('username', $username);
-        return $this->db->delete('akun');
+        $this->db->insert('akun', $data);
+        return $this->db->insert_id();
     }
 
-    public function deleteDokter($username)
+    public function addAdmin($data)
     {
-        $this->db->where('username', $username);
-        return $this->db->delete('akun');
+        $this->db->insert('admin', $data);
+        return $this->db->insert_id();
     }
 }

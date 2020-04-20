@@ -54,7 +54,7 @@
           url: `<?= base_url('PasienController/delete_pasien/') ?>${username}`,
           type: "GET",
           async: true,
-          dataType: "JSON",
+          dataType: "JSON"
         })
         table.ajax.reload();
         $("#deleteModal").modal('hide');

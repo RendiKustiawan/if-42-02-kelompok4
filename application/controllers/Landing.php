@@ -22,7 +22,6 @@ class Landing extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->library('form_validation');
 	}
 
 	public function index()
@@ -44,7 +43,7 @@ class Landing extends CI_Controller
 
 	public function login()
 	{
-		$this->form_validation->set_rules('username', 'Username', 'required|trim');
+		$this->form_validation->set_rules('username', 'username', 'required|trim');
 		$this->form_validation->set_rules('password', 'password', 'required|trim');
 		$content['main_view'] = 'LoginView';
 		$content['title'] = 'Sign In';
@@ -119,6 +118,7 @@ class Landing extends CI_Controller
 			'min_length' => 'Password too Short'
 		]);
 		$this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+
 		$content['main_view'] = 'RegistrasiView';
 		$content['title'] = 'Sign Up';
 
