@@ -28,4 +28,11 @@ class PendaftarController extends CI_Controller
         $this->PendaftarModel->deletePendaftar($id_tabel_pendaftar);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data '.$id_tabel_pendaftar.' Berhasil Dihapus</div>');
     }
+
+    public function edit_pendaftar($id_tabel_pendaftar){
+        $this->PendaftarModel->editPendaftar($id_tabel_pendaftar);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data '.$id_tabel_pendaftar.' Berhasil DiUpdate</div>');
+        
+    }
+
 }
