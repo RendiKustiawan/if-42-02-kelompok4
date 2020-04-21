@@ -100,7 +100,7 @@
         </div>
         <div class="form-button modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="tambahSubmit">Edit</button>
+          <button type="submit" class="btn btn-primary" id="tambahSubmit">Tambah</button>
         </div>
       </form>
     </div>
@@ -166,6 +166,30 @@
         table.ajax.reload();
         $("#deleteModal").modal('hide');
       })
+    });
+
+    $('#tambahForm').on('submit', function(event) {
+      event.preventDefault();
+      let form = $(this);
+
+      $.ajax({
+        url: `<?= base_url('PendaftarController/add_pendaftar') ?>`,
+        type: 'post',
+        data: form.serialize(),
+        dataType: 'json',
+        success: function(res) {
+          if (res.success == true) {
+            table.ajax.reload();
+            $("#tambahModal").modal('hide');
+          } else {
+            $.each(res.messages, function(key, value) {
+              let el = $('#' + key);
+              el.closest('div.form-group').find("div.error").remove();
+              el.after(value);
+            })
+          }
+        }
+      });
     });
 
     $('#tambahModal').on('hide.bs.modal', function() {
