@@ -1,5 +1,9 @@
 <div class="py-5">
+<h1 class="text-center"><?= $title ?></h1>
   <div class="table-responsive container">
+  <div class="d-flex justify-content-end px-3 mt-2">
+      <button type="button" class="btn btn-primary" id="tambah" data-toggle="modal" data-target="#tambahModal">Tambah <?= $title ?></button>
+    </div>
     <table class="table table-dark table-hover table-bordered" id="mydata" style="width: 100%">
       <thead>
         <tr>
@@ -19,10 +23,8 @@
   </div>
 </div>
 
-<!-- Edit Modal Pendaftar -->
+<!-- Edit Modal Pendaftar
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-  
-  
       </div>
       <form id="EditForm" method="POST">
         <div class="modal-body">
@@ -35,20 +37,20 @@
             <input type="text" class="form-control" id="no_antrian" name="no_antrian">
           </div>
           <div class="form-group">
-            <label for="password" class="col-form-label">Usia Anak</label>
-            <input type="password" class="form-control" id="usia_anak" name="usia_anak">
+            <label for="username" class="col-form-label">Usia Anak</label>
+            <input type="text" class="form-control" id="usia_anak" name="usia_anak">
           </div>
           <div class="form-group">
-            <label for="password" class="col-form-label">Tinggi Anak</label>
-            <input type="password" class="form-control" id="tinggi_anak" name="tinggi_anak">
+            <label for="username" class="col-form-label">Tinggi Anak</label>
+            <input type="text" class="form-control" id="tinggi_anak" name="tinggi_anak">
           </div>
           <div class="form-group">
-            <label for="password" class="col-form-label">Berat Anak</label>
-            <input type="password" class="form-control" id="berat_anak" name="berat_anak">
+            <label for="username" class="col-form-label">Berat Anak</label>
+            <input type="text" class="form-control" id="berat_anak" name="berat_anak">
           </div>
           <div class="form-group">
-            <label for="password" class="col-form-label">Keluhan</label>
-            <input type="password" class="form-control" id="keluhan" name="keluhan">
+            <label for="username" class="col-form-label">Keluhan</label>
+            <input type="text" class="form-control" id="keluhan" name="keluhan">
           </div>
 
         </div>
@@ -57,7 +59,53 @@
           <button type="submit" class="btn btn-primary" id="tambahSubmit">Edit</button>
         </div>
       </form>
-    
+     -->
+
+     <!-- Tambah Modal Pendaftar -->
+<div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tambahModalLabel">Tambah <?= $title ?></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="EditForm" method="POST">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="name" class="col-form-label">NIP</label>
+            <input type="text" class="form-control" id="nip" name="nip">
+          </div>
+          <div class="form-group">
+            <label for="username" class="col-form-label">No Antrian</label>
+            <input type="text" class="form-control" id="no_antrian" name="no_antrian">
+          </div>
+          <div class="form-group">
+            <label for="username" class="col-form-label">Usia Anak</label>
+            <input type="text" class="form-control" id="usia_anak" name="usia_anak">
+          </div>
+          <div class="form-group">
+            <label for="username" class="col-form-label">Tinggi Anak</label>
+            <input type="text" class="form-control" id="tinggi_anak" name="tinggi_anak">
+          </div>
+          <div class="form-group">
+            <label for="username" class="col-form-label">Berat Anak</label>
+            <input type="text" class="form-control" id="berat_anak" name="berat_anak">
+          </div>
+          <div class="form-group">
+            <label for="username" class="col-form-label">Keluhan</label>
+            <input type="text" class="form-control" id="keluhan" name="keluhan">
+          </div>
+        </div>
+        <div class="form-button modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="tambahSubmit">Edit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
 
@@ -119,5 +167,14 @@
         $("#deleteModal").modal('hide');
       })
     });
+
+    $('#tambahModal').on('hide.bs.modal', function() {
+      $("#nip").val("");
+      $("#no_antrian").val("");
+      $("#usia_anak").val("");
+      $("#tinggi_anak").val("");
+      $("#berat_anak").val("");
+      $("#keluhan").val("");
+    })
   });
 </script>
