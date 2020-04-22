@@ -75,21 +75,24 @@ class Landing extends CI_Controller
 					$data = [
 						'username' => $user['username'],
 						'nama' => $user['nama'],
-						'hak_akses' => $query['hak_akses']
+						'hak_akses' => $query['hak_akses'],
+						'id' => $user['nip']
 					];
 				} else if ($query['hak_akses'] == 2) {
 					$user = $this->db->get_where('dokter', ['username' => $username])->row_array();
 					$data = [
 						'username' => $user['username'],
 						'nama' => $user['nama'],
-						'hak_akses' => $query['hak_akses']
+						'hak_akses' => $query['hak_akses'],
+						'id' => $user['id_dokter']
 					];
 				} else {
 					$user = $this->db->get_where('admin', ['username' => $username])->row_array();
 					$data = [
 						'username' => $user['username'],
 						'nama' => $user['nama'],
-						'hak_akses' => $query['hak_akses']
+						'hak_akses' => $query['hak_akses'],
+						'id' => $user['id_admin']
 					];
 				}
 				$this->session->set_userdata($data);

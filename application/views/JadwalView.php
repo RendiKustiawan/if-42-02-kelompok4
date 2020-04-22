@@ -1,9 +1,14 @@
+<!-- Tabel Jadwal Imunisasi -->
 <div class="py-5">
   <h1 class="text-center"><?= $title ?></h1>
   <div class="table-responsive container">
-    <div class="d-flex justify-content-end px-3 mt-2">
-      <button type="button" class="btn btn-primary" id="tambah" data-toggle="modal" data-target="#tambahModal">Tambah <?= $title ?></button>
-    </div>
+    <?php
+    if ($this->session->userdata('hak_akses') == 2) {
+      echo '<div class="d-flex justify-content-end px-3 mt-2">
+      <button type="button" class="btn btn-primary" id="tambah" data-toggle="modal" data-target="#tambahModal">Tambah ' . $title . '</button>
+    </div>';
+    }
+    ?>
     <table class="table table-dark table-hover table-bordered" id="mydata" style="width: 100%">
       <thead>
         <tr>
@@ -18,8 +23,42 @@
   </div>
 </div>
 
+<!-- Tambah Modal Jadwal Imunisasi -->
+<div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tambahModalLabel">Tambah <?= $title ?></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="tambahForm" method="POST">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="tanggal" class="col-form-label">Jadwal</label>
+            <input type="date" class="form-control" id="tanggal" name="tanggal">
+          </div>
+          <div class="form-group">
+            <label for="nama" class="col-form-label">Nama Dokter</label>
+            <input type="text" class="form-control" id="nama" name="nama" value="<?= $this->session->userdata('nama');?>" disabled>
+          </div>
+          <div class="form-group">
+            <input type="hidden" class="form-control" id="id_dokter" name="id_dokter" value="<?= $this->session->userdata('id');?>">
+          </div>
+        </div>
+        <div class="form-button modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" id="tambahSubmit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
 <script type="text/javascript">
+  // Get Data Jadwal
   $(document).ready(function() {
     let table = $('#mydata').DataTable({
       "ordering": true,
@@ -46,12 +85,13 @@
         {
           "data": "id_jadwal",
           "render": function(data, type, row) {
-            return `<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-whatever="${data}" data-name="${row.tanggal}"><i class="fas fa-trash"></i></button>`
+            return <?= $this->session->userdata('hak_akses'); ?> == 2 ? `<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-whatever="${data}"><i class="fas fa-trash"></i></button>
+            <span class="ml-2"><button class="btn btn-primary mr-2" data-toggle="modal" data-target="#editModal" data-edit="${data}"><i class="fas fa-edit"></i></button></span>` : ''
           }
         }
       ]
     });
-
+    // Delete Modal
     $('#deleteModal').on('show.bs.modal', function(event) {
       let id_jadwal = $(event.relatedTarget).data('whatever');
       let jadwal = $(event.relatedTarget).data('name');
@@ -68,5 +108,35 @@
         $("#deleteModal").modal('hide');
       })
     });
+
+    // Tambah Form
+    $('#tambahForm').on('submit', function(event) {
+      event.preventDefault();
+      let form = $(this);
+
+      $.ajax({
+        url: `<?= base_url('JadwalController/add_jadwal') ?>`,
+        type: 'post',
+        data: form.serialize(),
+        dataType: 'json',
+        success: function(res) {
+          if (res.success == true) {
+            table.ajax.reload();
+            $("#tambahModal").modal('hide');
+          } else {
+            $.each(res.messages, function(key, value) {
+              let el = $('#' + key);
+              el.closest('div.form-group').find("div.error").remove();
+              el.after(value);
+            })
+          }
+        }
+      });
+    });
+
+    // Tambah Modal
+    $('#tambahModal').on('hide.bs.modal', function() {
+      $("#tanggal").val("");
+    }); 
   });
 </script>

@@ -56,40 +56,4 @@ class AdminController extends CI_Controller
     }
     echo json_encode($msg);
   }
-  public function add_dokter()
-  {
-    $data = [];
-    $msg = array('success' => false, 'messages' => array());
-    $this->form_validation->set_rules("username", "Username", "trim|required|is_unique[akun.username]");
-    $this->form_validation->set_rules("password", "Password", "trim|required|min_length[5]");
-    $this->form_validation->set_rules("name", "name", "trim|required");
-    $this->form_validation->set_rules("spesialis", "spesialis", "trim|required");
-    $this->form_validation->set_rules("lama_bekerja", "lama_bekerja", "trim|required");
-    $this->form_validation->set_error_delimiters('<div class="error text-danger">', '</div>');
-
-    if ($this->form_validation->run()) {
-      $msg['success'] = true;
-      foreach ($_POST as $key => $value) {
-        $data[$key] = $value;
-      }
-      $data1 = [
-        'username' => $data['username'],
-        'password' => password_hash($data['password'], PASSWORD_DEFAULT),
-        'hak_akses' => 2
-      ];
-      $data2 = [
-        'username' => $data['username'],
-        'nama' => $data['name'],
-        'spesialis' => $data['spesialis'],
-        'lama_bekerja' => $data['lama_bekerja'],
-      ];
-      $this->AdminModel->addAkun($data1);
-      $this->AdminModel->addDokter($data2);
-    } else {
-      foreach ($_POST as $key => $value) {
-        $msg['messages'][$key] = form_error($key);
-      }
-    }
-    echo json_encode($msg);
-  }
 }

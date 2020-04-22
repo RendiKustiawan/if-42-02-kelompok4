@@ -26,4 +26,29 @@ class JadwalController extends CI_Controller
     public function delete_jadwal($id_jadwal) {
         $this->JadwalModel->deleteJadwal($id_jadwal);
     }
+
+    public function add_jadwal()
+    {
+        $data = [];
+        $msg = array('success' => false, 'messages' => array());
+        $this->form_validation->set_rules("tanggal", "tanggal", "trim|required|is_unique[jadwal_imunisasi.tanggal]");
+        $this->form_validation->set_error_delimiters('<div class="error text-danger">', '</div>');
+
+        if ($this->form_validation->run()) {
+            $msg['success'] = true;
+            foreach ($_POST as $key => $value) {
+                $data[$key] = $value;
+            }
+            $data1 = [
+                'id_dokter' => $data['id_dokter'],
+                'tanggal' => $data['tanggal']
+            ];
+            $this->JadwalModel->addJadwal($data1);
+        } else {
+            foreach ($_POST as $key => $value) {
+                $msg['messages'][$key] = form_error($key);
+            }
+        }
+        echo json_encode($msg);
+    }
 }
