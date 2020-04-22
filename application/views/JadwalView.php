@@ -41,15 +41,47 @@
           </div>
           <div class="form-group">
             <label for="nama" class="col-form-label">Nama Dokter</label>
-            <input type="text" class="form-control" id="nama" name="nama" value="<?= $this->session->userdata('nama');?>" disabled>
+            <input type="text" class="form-control" id="nama" name="nama" value="<?= $this->session->userdata('nama'); ?>" disabled>
           </div>
           <div class="form-group">
-            <input type="hidden" class="form-control" id="id_dokter" name="id_dokter" value="<?= $this->session->userdata('id');?>">
+            <input type="hidden" class="form-control" id="id_dokter" name="id_dokter" value="<?= $this->session->userdata('id'); ?>">
           </div>
         </div>
         <div class="form-button modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary" id="tambahSubmit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit Form</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="editForm" method="POST">
+        <div class="form-group">
+          <label for="tanggal" class="col-form-label">Tanggal</label>
+          <select class="form-control" id="tanggal" name="tanggal">
+            <?php
+            $query = $this->db->get('jadwal_imunisasi');
+            $result = $query->result_array();
+            foreach ($result as $key) {
+              echo "<option value='" . $key['id_jadwal'] . "'>" . $key['tanggal'] . "</option>";
+            }
+            ?>
+          </select>
+        </div>
+        <div class="form-button modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" id="editSubmit">Submit</button>
         </div>
       </form>
     </div>
@@ -109,6 +141,55 @@
       })
     });
 
+    // Edit Modal
+    $('#editModal').on('show.bs.modal', function(event) {
+        let username = $(event.relatedTarget).data('edit');
+        let modal = $(this);
+
+        $.ajax({
+          url: `<?= base_url('JadwalController/data_tanggal/') ?>${id_jadwal}`,
+          type: "GET",
+          dataType: "json",
+          success: function(data) {
+            if (data) {
+              $("#tanggal").val(data.tanggal);
+            } else {
+              console.log("error");
+            }
+          }
+        })
+      )
+    };
+
+    // edit Form
+    $('#editForm').on('submit', function(event) {
+      event.preventDefault();
+      let form = $(this);
+
+      $.ajax({
+        url: `<?= base_url('DokterController/update_jadwal/') ?>${id_jadwal}`,
+        type: "POST",
+        data: form.serialize(),
+        dataType: 'json',
+        success: function(res) {
+          if (res.success == true) {
+            $("#nip").val('');
+            $("#name").val('');
+            $("#username").val('');
+            table.ajax.reload();
+            $("#editModal").modal('hide');
+          } else {
+            $.each(res.messages, function(key, value) {
+              let el = $('#' + key);
+              el.closest('div.form-group').find("div.error").remove();
+              el.after(value);
+            })
+          }
+        }
+      })
+    })
+
+
     // Tambah Form
     $('#tambahForm').on('submit', function(event) {
       event.preventDefault();
@@ -137,6 +218,6 @@
     // Tambah Modal
     $('#tambahModal').on('hide.bs.modal', function() {
       $("#tanggal").val("");
-    }); 
+    });
   });
 </script>

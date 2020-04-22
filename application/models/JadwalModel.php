@@ -1,23 +1,37 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class JadwalModel extends CI_Model {
+class JadwalModel extends CI_Model
+{
 
-	public function GetJadwal()
+    public function GetJadwal()
     {
         $query = $this->db->query('SELECT * FROM jadwal_imunisasi JOIN dokter WHERE dokter.id_dokter = jadwal_imunisasi.id_dokter');
 
         return $query->result();
     }
-    public function deleteJadwal($id_jadwal) {
+    public function deleteJadwal($id_jadwal)
+    {
         $this->db->where('id_jadwal', $id_jadwal);
         return $this->db->delete('jadwal_imunisasi');
     }
-    public function addJadwal($data) {
+    public function addJadwal($data)
+    {
         $this->db->insert('jadwal_imunisasi', $data);
         return $this->db->insert_id();
     }
 
+    public function updateJadwal($data, $id_jadwal)
+    {
+        $this->db->where('id_jadwal',$id_jadwal);
+        this->db->update('jadwal_imunisasi')
+    }
+
+    public function getTanggal($id_jadwal)
+    {
+        $query = $this->db->query("SELECT tanggal FROM jadwal_imunisasi where jadwal_imunisasi.id_jadwal = $id_jadwal");
+        return $query->result();
+    }
 }
 
 /* End of file JadwalModel.php */

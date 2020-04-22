@@ -23,8 +23,16 @@ class JadwalController extends CI_Controller
 
         echo json_encode($data);
     }
-    public function delete_jadwal($id_jadwal) {
+    public function delete_jadwal($id_jadwal)
+    {
         $this->JadwalModel->deleteJadwal($id_jadwal);
+    }
+
+    public function data_tanggal($id_jadwal)
+    {
+        $data  = $this->JadwalModel->getTanggal($id_jadwal);
+
+        echo json_encode($data);
     }
 
     public function add_jadwal()
@@ -44,6 +52,33 @@ class JadwalController extends CI_Controller
                 'tanggal' => $data['tanggal']
             ];
             $this->JadwalModel->addJadwal($data1);
+        } else {
+            foreach ($_POST as $key => $value) {
+                $msg['messages'][$key] = form_error($key);
+            }
+        }
+        echo json_encode($msg);
+    }
+
+    public function update_jadwal($id_jadwal)
+    {
+        $data = [];
+        $msg = array('success' => false, 'messages' => array());
+        $this->form_validation->set_rules("tanggal", "Jadwal", "required");
+        $this->form_validation->set_error_delimiters('<div class="error text-danger">', '</div>');
+
+        if ($this->form_validation->run()) {
+            $msg['success'] = true;
+            foreach ($_POST as $key => $value) {
+                $data[$key] = $value;
+            }
+
+            $data = [
+                'tanggal' => $data['tanggal']
+            ];
+
+            $this->JadwalModel->updateProfile($data, $id_jadwal);
+            
         } else {
             foreach ($_POST as $key => $value) {
                 $msg['messages'][$key] = form_error($key);
