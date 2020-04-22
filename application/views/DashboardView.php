@@ -6,22 +6,19 @@
       <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="<?= base_url('assets/vector.png') ?>" class="d-block w-100" alt="..." height="300px">
+      <div class="carousel-item active bg-danger" style="height: 300px;">
         <div class="carousel-caption d-none d-md-block">
           <h5>First slide label</h5>
           <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
         </div>
       </div>
-      <div class="carousel-item">
-        <img src="<?= base_url('assets/vector.png') ?>" class="d-block w-100" alt="..." height="300px">
+      <div class="carousel-item bg-warning" style="height: 300px;">
         <div class="carousel-caption d-none d-md-block">
           <h5>Second slide label</h5>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
       </div>
-      <div class="carousel-item">
-        <img src="<?= base_url('assets/vector.png') ?>" class="d-block w-100" alt="..." height="300px">
+      <div class="carousel-item bg-success" style="height: 300px;">
         <div class="carousel-caption d-none d-md-block">
           <h5>Third slide label</h5>
           <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
