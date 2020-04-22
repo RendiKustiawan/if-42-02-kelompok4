@@ -34,4 +34,12 @@ class PendaftarModel extends CI_Model
     $query = $this->db->query("SELECT `id_jadwal` FROM `tabel_pendaftar_imunisasi` WHERE `id_jadwal` = $id_jadwal");
     return $query->num_rows();
   }
+
+  public function getOnePendaftar($nip)
+  {
+    $query = $this->db->query("SELECT * FROM `tabel_pendaftar_imunisasi` JOIN jadwal_imunisasi 
+        ON tabel_pendaftar_imunisasi.id_jadwal = jadwal_imunisasi.id_jadwal
+        JOIN dokter ON dokter.id_dokter = jadwal_imunisasi.id_dokter WHERE tabel_pendaftar_imunisasi.nip = $nip");
+    return $query->result();
+  }
 }

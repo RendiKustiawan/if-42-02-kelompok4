@@ -24,6 +24,12 @@ class PendaftarController extends CI_Controller
     echo json_encode($data);
   }
 
+  public function data_one_pendaftar($nip)
+  {
+    $data = $this->PendaftarModel->GetOnePendaftar($nip);
+    echo json_encode($data);
+  }
+
   public function delete_pendaftar($id_tabel_pendaftar)
   {
     $this->PendaftarModel->deletePendaftar($id_tabel_pendaftar);

@@ -151,6 +151,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+    const baseUrl = <?= $this->session->userdata('hak_akses') ?> != 3 ? `<?= base_url('PendaftarController/data_pendaftar') ?>` : `<?= base_url("PendaftarController/data_one_pendaftar/".$this->session->userdata('id')) ?>`
     let table = $('#mydata').DataTable({
       "searching": false,
       "ordering": true,
@@ -158,7 +159,7 @@
         [1, 'asc']
       ],
       "ajax": {
-        "url": "<?= base_url('PendaftarController/data_pendaftar') ?>",
+        "url": baseUrl,
         "type": "GET",
         "dataSrc": ""
       },
