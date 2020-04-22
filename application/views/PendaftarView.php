@@ -63,7 +63,7 @@
 
      <!-- Tambah Modal Pendaftar -->
 <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable" role="document">
+  <div class="modal-dialog " role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="tambahModalLabel">Tambah <?= $title ?></h5>
@@ -71,36 +71,48 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="EditForm" method="POST">
+      <form id="tambahForm" method="POST">
         <div class="modal-body">
           <div class="form-group">
-            <label for="name" class="col-form-label">NIP</label>
-            <input type="text" class="form-control" id="nip" name="nip">
+            <label for="nip" class="col-form-label">NIP</label>
+            <input type="text" class="form-control" value="<?= $this->session->userdata('id') ?>" id="nip" name="nip" readonly>
           </div>
           <div class="form-group">
-            <label for="username" class="col-form-label">No Antrian</label>
+            <label for="no_antrian" class="col-form-label">No Antrian</label>
             <input type="text" class="form-control" id="no_antrian" name="no_antrian">
           </div>
           <div class="form-group">
-            <label for="username" class="col-form-label">Usia Anak</label>
+            <label for="usia_anak" class="col-form-label">Usia Anak</label>
             <input type="text" class="form-control" id="usia_anak" name="usia_anak">
           </div>
           <div class="form-group">
-            <label for="username" class="col-form-label">Tinggi Anak</label>
+            <label for="tinggi_anak" class="col-form-label">Tinggi Anak</label>
             <input type="text" class="form-control" id="tinggi_anak" name="tinggi_anak">
           </div>
           <div class="form-group">
-            <label for="username" class="col-form-label">Berat Anak</label>
+            <label for="berat_anak" class="col-form-label">Berat Anak</label>
             <input type="text" class="form-control" id="berat_anak" name="berat_anak">
           </div>
           <div class="form-group">
-            <label for="username" class="col-form-label">Keluhan</label>
+            <label for="keluhan" class="col-form-label">Keluhan</label>
             <input type="text" class="form-control" id="keluhan" name="keluhan">
+          </div>
+          <div class="form-group">
+            <label for="tanggal" class="col-form-label">Tanggal</label>
+            <select class="form-control" id="tanggal" name="tanggal">
+              <?php 
+                $query= $this->db->get('jadwal_imunisasi');
+                $result= $query->result_array();
+                foreach ($result as $key) {
+                  echo "<option value='".$key['id_jadwal']."'>".$key['tanggal']."</option>";
+                } 
+              ?>
+            </select>
           </div>
         </div>
         <div class="form-button modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="tambahSubmit">Tambah</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" id="editSubmit">Submit</button>
         </div>
       </form>
     </div>
@@ -188,12 +200,12 @@
               el.after(value);
             })
           }
+          // console.log(res)
         }
       });
     });
 
     $('#tambahModal').on('hide.bs.modal', function() {
-      $("#nip").val("");
       $("#no_antrian").val("");
       $("#usia_anak").val("");
       $("#tinggi_anak").val("");

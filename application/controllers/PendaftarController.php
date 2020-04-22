@@ -44,12 +44,12 @@ class PendaftarController extends CI_Controller
     {
       $data = [];
       $msg = array('success' => false, 'messages' => array());
-      $this->form_validation->set_rules("nip", "nip", "trim|required");
-      $this->form_validation->set_rules("no_antrian", "no_antrian", "trim|required");
-      $this->form_validation->set_rules("usia_anak", "usia_anak", "trim|required");
-      $this->form_validation->set_rules("tinggi_anak", "tinggi_anak", "trim|required");
-      $this->form_validation->set_rules("berat_anak", "berat_anak", "trim|required");
-      $this->form_validation->set_rules("keluhan", "keluhan", "trim|required");
+      $this->form_validation->set_rules("nip", "NIP", "trim|required");
+      $this->form_validation->set_rules("no_antrian", "No Antrian", "trim|required");
+      $this->form_validation->set_rules("usia_anak", "Usia Anak", "trim|required");
+      $this->form_validation->set_rules("tinggi_anak", "Tinggi Anak", "trim|required");
+      $this->form_validation->set_rules("berat_anak", "Berat Anak", "trim|required");
+      $this->form_validation->set_rules("keluhan", "Keluhan", "trim|required");
       $this->form_validation->set_error_delimiters('<div class="error text-danger">', '</div>');
   
       if ($this->form_validation->run()) {
@@ -59,11 +59,12 @@ class PendaftarController extends CI_Controller
         }
         $data1 = [
           'nip' => $data['nip'],
+          'id_jadwal'=> $data['tanggal'],
           'no_antrian' => $data['no_antrian'],
           'usia_anak' => $data['usia_anak'],
           'tinggi_anak' => $data['tinggi_anak'],
           'berat_anak' => $data['berat_anak'],
-          'keluhan' => $data['keluhan'],
+          'keluhan' => $data['keluhan']
         ];
         $this->PendaftarModel->addPendaftar($data1);
       } else {

@@ -5,7 +5,10 @@ class PendaftarModel extends CI_Model
 {
     public function GetPendaftar()
     {
-        $query = $this->db->query('SELECT * FROM tabel_pendaftar_imunisasi INNER JOIN jadwal_imunisasi INNER JOIN dokter');
+        // $query = $this->db->query('SELECT * FROM tabel_pendaftar_imunisasi JOIN  jadwal_imunisasi JOIN  dokter');
+        $query = $this->db->query('SELECT * FROM `tabel_pendaftar_imunisasi` JOIN jadwal_imunisasi 
+        ON tabel_pendaftar_imunisasi.id_jadwal = jadwal_imunisasi.id_jadwal
+        JOIN dokter ON dokter.id_dokter = jadwal_imunisasi.id_dokter');
         return $query->result();
     }
 
