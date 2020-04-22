@@ -1,7 +1,7 @@
 <div class="py-5">
-<h1 class="text-center"><?= $title ?></h1>
+  <h1 class="text-center"><?= $title ?></h1>
   <div class="table-responsive container">
-  <div class="d-flex justify-content-end px-3 mt-2">
+    <div class="d-flex justify-content-end px-3 mt-2">
       <button type="button" class="btn btn-primary" id="tambah" data-toggle="modal" data-target="#tambahModal">Tambah <?= $title ?></button>
     </div>
     <table class="table table-dark table-hover table-bordered" id="mydata" style="width: 100%">
@@ -61,7 +61,7 @@
       </form>
      -->
 
-     <!-- Tambah Modal Pendaftar -->
+<!-- Tambah Modal Pendaftar -->
 <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
   <div class="modal-dialog " role="document">
     <div class="modal-content">
@@ -83,15 +83,15 @@
           </div>
           <div class="form-group">
             <label for="usia_anak" class="col-form-label">Usia Anak</label>
-            <input type="text" class="form-control" id="usia_anak" name="usia_anak">
+            <input type="number" class="form-control" id="usia_anak" name="usia_anak">
           </div>
           <div class="form-group">
             <label for="tinggi_anak" class="col-form-label">Tinggi Anak</label>
-            <input type="text" class="form-control" id="tinggi_anak" name="tinggi_anak">
+            <input type="number" class="form-control" id="tinggi_anak" name="tinggi_anak">
           </div>
           <div class="form-group">
             <label for="berat_anak" class="col-form-label">Berat Anak</label>
-            <input type="text" class="form-control" id="berat_anak" name="berat_anak">
+            <input type="number" class="form-control" id="berat_anak" name="berat_anak">
           </div>
           <div class="form-group">
             <label for="keluhan" class="col-form-label">Keluhan</label>
@@ -100,12 +100,12 @@
           <div class="form-group">
             <label for="tanggal" class="col-form-label">Tanggal</label>
             <select class="form-control" id="tanggal" name="tanggal">
-              <?php 
-                $query= $this->db->get('jadwal_imunisasi');
-                $result= $query->result_array();
-                foreach ($result as $key) {
-                  echo "<option value='".$key['id_jadwal']."'>".$key['tanggal']."</option>";
-                } 
+              <?php
+              $query = $this->db->get('jadwal_imunisasi');
+              $result = $query->result_array();
+              foreach ($result as $key) {
+                echo "<option value='".$key['id_jadwal']."'>".$key['tanggal']."</option>";
+              }
               ?>
             </select>
           </div>
