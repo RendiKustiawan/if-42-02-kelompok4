@@ -2,11 +2,11 @@
   <h1 class="text-center"><?= $title ?></h1>
   <div class="table-responsive container">
     <?php
-      if ($this->session->userdata('hak_akses') == 1) {
-        echo '<div class="d-flex justify-content-end px-3 mt-2">
-      <button type="button" class="btn btn-primary" id="tambah" data-toggle="modal" data-target="#tambahModal">Tambah '.$title.'</button>
+    if ($this->session->userdata('hak_akses') == 1) {
+      echo '<div class="d-flex justify-content-end px-3 mt-2">
+      <button type="button" class="btn btn-primary" id="tambah" data-toggle="modal" data-target="#tambahModal">Tambah ' . $title . '</button>
     </div>';
-      }
+    }
     ?>
     <!-- <div class="d-flex justify-content-end px-3 mt-2">
       <button type="button" class="btn btn-primary" id="tambah" data-toggle="modal" data-target="#tambahModal">Tambah <?= $title ?></button>
@@ -67,6 +67,44 @@
   </div>
 </div>
 
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit Form</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="editForm" method="POST">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="nip" class="col-form-label">Username</label>
+            <input type="text" class="form-control" id="usernameEdit" name="username">
+          </div>
+          <div class="form-group">
+            <label for="name" class="col-form-label">Nama</label>
+            <input type="text" class="form-control" id="namaEdit" name="nama">
+          </div>
+          <div class="form-group">
+            <label for="username" class="col-form-label">Spesialis</label>
+            <input type="text" class="form-control" id="spesialisEdit" name="spesialis">
+          </div>
+          <div class="form-group">
+            <label for="username" class="col-form-label">Lama Bekerja</label>
+            <input type="text" class="form-control" id="lama_bekerjaEdit" name="lama_bekerja">
+          </div>
+        </div>
+        <div class="form-button modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" id="editSubmit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
   $(document).ready(function() {
     let table = $('#mydata').DataTable({
@@ -95,7 +133,8 @@
         {
           "data": "username",
           "render": function(data, type, row) {
-            return <?= $this->session->userdata('hak_akses'); ?> == 1?`<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-whatever="${data}"><i class="fas fa-trash"></i></button>`:''
+            return <?= $this->session->userdata('hak_akses'); ?> == 1 ? `<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-whatever="${data}"><i class="fas fa-trash"></i></button>
+            <span class="ml-2"><button class="btn btn-primary mr-2" data-toggle="modal" data-target="#editModal" data-edit="${data}"><i class="fas fa-edit"></i></button></span>` : ''
           }
         }
       ]
@@ -152,5 +191,52 @@
       $("#lama_bekerja").val("");
     });
 
+    $('#editModal').on('show.bs.modal', function(event) {
+      let username = $(event.relatedTarget).data('edit');
+      let modal = $(this);
+
+      $.ajax({
+        url: `<?= base_url('DokterController/getOneDokter/') ?>${username}`,
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+          if (data) {
+            $("#usernameEdit").val(data.username);
+            $("#namaEdit").val(data.nama);
+            $("#spesialisEdit").val(data.spesialis);
+            $("#lama_bekerjaEdit").val(data.lama_bekerja);
+          } else {
+            console.log("error");
+          }
+        }
+      })
+
+      $('#editForm').on('submit', function(event) {
+        event.preventDefault();
+        let form = $(this);
+        $.ajax({
+          url: `<?= base_url('DokterController/edit_dokter/') ?>${username}`,
+          type: "POST",
+          data: form.serialize(),
+          dataType: 'json',
+          success: function(res) {
+            if (res.success == true) {
+              $("#usernameEdit").val('');
+              $("#namaEdit").val('');
+              $("#spesialisEdit").val('');
+              $("#lama_bekerjaEdit").val('');
+              table.ajax.reload();
+              $('#editModal').modal('hide');
+            } else {
+              $.each(res.messages, function(key, value) {
+                let el = $('#' + key);
+                el.closest('div.form-group').find("div.error").remove();
+                el.after(value);
+              })
+            }
+          }
+        })
+      })
+    });
   });
 </script>
