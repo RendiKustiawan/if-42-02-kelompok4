@@ -64,7 +64,7 @@ class JadwalController extends CI_Controller
     {
         $data = [];
         $msg = array('success' => false, 'messages' => array());
-        $this->form_validation->set_rules("tanggal", "Jadwal", "required");
+        $this->form_validation->set_rules("tanggalJadwal", "Jadwal", "required|is_unique[jadwal_imunisasi.tanggal]");
         $this->form_validation->set_error_delimiters('<div class="error text-danger">', '</div>');
 
         if ($this->form_validation->run()) {
@@ -74,10 +74,10 @@ class JadwalController extends CI_Controller
             }
 
             $data = [
-                'tanggal' => $data['tanggal']
+                'tanggal' => $data['tanggalJadwal']
             ];
 
-            $this->JadwalModel->updateProfile($data, $id_jadwal);
+            $this->JadwalModel->updateJadwal($data, $id_jadwal);
             
         } else {
             foreach ($_POST as $key => $value) {

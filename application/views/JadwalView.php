@@ -1,3 +1,9 @@
+<?php
+if (!$this->session->userdata('username')) {
+  redirect('Landing/dashboard');
+}
+?>
+
 <!-- Tabel Jadwal Imunisasi -->
 <div class="py-5">
   <h1 class="text-center"><?= $title ?></h1>
@@ -139,7 +145,19 @@
     // Edit Modal
     $('#editModal').on('show.bs.modal', function(event) {
       let id_jadwal = $(event.relatedTarget).data('edit');
-      let modal = $(this);
+
+      $.ajax({
+        url: `<?= base_url('JadwalController/data_tanggal/') ?>${id_jadwal}`,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data) {
+          if (data) {
+            $("#tanggalJadwal").val(data.tanggal)
+          } else {
+            console.log("error")
+          }
+        }
+      })
 
       // edit Form
       $('#editForm').on('submit', function(event) {

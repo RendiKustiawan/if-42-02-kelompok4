@@ -1,3 +1,13 @@
+<?php
+if ($this->session->userdata('username')) {
+  if ($this->session->userdata('hak_akses') == 3) {
+    redirect('Landing/dashboard');
+  }
+} else {
+  redirect('Landing/dashboard');
+}
+?>
+
 <div class="py-5">
   <h1 class="text-center"><?= $title ?></h1>
   <div class="table-responsive container">

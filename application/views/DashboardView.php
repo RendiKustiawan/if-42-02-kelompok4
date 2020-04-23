@@ -8,20 +8,20 @@
     <div class="carousel-inner">
       <div class="carousel-item active bg-danger" style="height: 300px;">
         <div class="carousel-caption d-none d-md-block">
-          <h5>First slide label</h5>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <h5>First slide</h5>
+          <p>Ini Warna Merah</p>
         </div>
       </div>
       <div class="carousel-item bg-warning" style="height: 300px;">
         <div class="carousel-caption d-none d-md-block">
-          <h5>Second slide label</h5>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h5>Second slide</h5>
+          <p>Ini Warna Kuning</p>
         </div>
       </div>
       <div class="carousel-item bg-success" style="height: 300px;">
         <div class="carousel-caption d-none d-md-block">
-          <h5>Third slide label</h5>
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+          <h5>Third slide</h5>
+          <p>Ini Wanra Hijau</p>
         </div>
       </div>
     </div>
@@ -33,5 +33,19 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="sr-only">Next</span>
     </a>
+  </div>
+
+  <div class="dashboard-card">
+    <header>Tahukah Kamu?</header>
+    <article>
+      Imunisasi atau vaksin merupakan investasi masa depan bagi anak, karena dengan vaksin anak akan terhindar dari penyakit serta infeksi berbahaya. Anak-anak Anda akan memiliki kesempatan beraktifitas, bermain dan belajar tanpa terganggu oleh masalah kesehatan
+    </article>
+    <div class="dashboard-image-container d-flex align-items-center flex-lg-row flex-column">
+      <img src="<?= base_url('assets/img/dashboard/bayi_nangis.png') ?>">
+      <img src="<?= base_url('assets/img/dashboard/plus.png') ?>">
+      <img src="<?= base_url('assets/img/dashboard/suntikan.png') ?>">
+      <img src="<?= base_url('assets/img/dashboard/equal.png') ?>">
+      <img src="<?= base_url('assets/img/dashboard/bayi_happy.png') ?>">
+    </div>
   </div>
 </div>
