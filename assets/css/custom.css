@@ -231,3 +231,28 @@ a:hover {
 	padding-top: 66px;
 	background-color: #adb7d9;
 }
+
+.dashboard-card {
+	margin-top: 20px;
+	padding: 45px;
+	background-color: rgba(108, 99, 255, 0.2);
+	border-radius: 100px;
+}
+
+.dashboard-card header {
+	font-size: 4rem;
+	font-weight: bold;
+}
+
+.dashboard-card article {
+	font-size: 1.5rem;
+}
+
+.dashboard-image-container {
+	min-height: 280px;
+	justify-content: space-evenly;
+}
+
+.dashboard-image-container img {
+	margin: 10px
+}

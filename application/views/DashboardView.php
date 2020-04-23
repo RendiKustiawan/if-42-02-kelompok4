@@ -34,4 +34,18 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
+
+  <div class="dashboard-card">
+    <header>Tahukah Kamu?</header>
+    <article>
+      Imunisasi atau vaksin merupakan investasi masa depan bagi anak, karena dengan vaksin anak akan terhindar dari penyakit serta infeksi berbahaya. Anak-anak Anda akan memiliki kesempatan beraktifitas, bermain dan belajar tanpa terganggu oleh masalah kesehatan
+    </article>
+    <div class="dashboard-image-container d-flex align-items-center flex-lg-row flex-column">
+      <img src="<?= base_url('assets/img/dashboard/bayi_nangis.png') ?>">
+      <img src="<?= base_url('assets/img/dashboard/plus.png') ?>">
+      <img src="<?= base_url('assets/img/dashboard/suntikan.png') ?>">
+      <img src="<?= base_url('assets/img/dashboard/equal.png') ?>">
+      <img src="<?= base_url('assets/img/dashboard/bayi_happy.png') ?>">
+    </div>
+  </div>
 </div>
