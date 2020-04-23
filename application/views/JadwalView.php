@@ -67,17 +67,11 @@
         </button>
       </div>
       <form id="editForm" method="POST">
-        <div class="form-group">
-          <label for="tanggal" class="col-form-label">Tanggal</label>
-          <select class="form-control" id="tanggal" name="tanggal">
-            <?php
-            $query = $this->db->get('jadwal_imunisasi');
-            $result = $query->result_array();
-            foreach ($result as $key) {
-              echo "<option value='" . $key['id_jadwal'] . "'>" . $key['tanggal'] . "</option>";
-            }
-            ?>
-          </select>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="tanggal" class="col-form-label">Tanggal</label>
+            <input type="date" class="form-control" id="tanggalJadwal" name="tanggalJadwal">
+          </div>
         </div>
         <div class="form-button modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -123,6 +117,7 @@
         }
       ]
     });
+
     // Delete Modal
     $('#deleteModal').on('show.bs.modal', function(event) {
       let id_jadwal = $(event.relatedTarget).data('whatever');
@@ -143,51 +138,37 @@
 
     // Edit Modal
     $('#editModal').on('show.bs.modal', function(event) {
-        let username = $(event.relatedTarget).data('edit');
-        let modal = $(this);
+      let id_jadwal = $(event.relatedTarget).data('edit');
+      let modal = $(this);
+
+      // edit Form
+      $('#editForm').on('submit', function(event) {
+        event.preventDefault();
+        let form = $(this);
 
         $.ajax({
-          url: `<?= base_url('JadwalController/data_tanggal/') ?>${id_jadwal}`,
-          type: "GET",
-          dataType: "json",
-          success: function(data) {
-            if (data) {
-              $("#tanggal").val(data.tanggal);
+          url: `<?= base_url('JadwalController/update_jadwal/') ?>${id_jadwal}`,
+          type: "POST",
+          data: form.serialize(),
+          dataType: 'json',
+          success: function(res) {
+            if (res.success == true) {
+              $("#tanggalJadwal").val('');
+              table.ajax.reload();
+              $("#editModal").modal('hide');
             } else {
-              console.log("error");
+              $.each(res.messages, function(key, value) {
+                let el = $('#' + key);
+                el.closest('div.form-group').find("div.error").remove();
+                el.after(value);
+              })
             }
           }
         })
-      )
-    };
+      });
+    });
 
-    // edit Form
-    $('#editForm').on('submit', function(event) {
-      event.preventDefault();
-      let form = $(this);
 
-      $.ajax({
-        url: `<?= base_url('DokterController/update_jadwal/') ?>${id_jadwal}`,
-        type: "POST",
-        data: form.serialize(),
-        dataType: 'json',
-        success: function(res) {
-          if (res.success == true) {
-            $("#nip").val('');
-            $("#name").val('');
-            $("#username").val('');
-            table.ajax.reload();
-            $("#editModal").modal('hide');
-          } else {
-            $.each(res.messages, function(key, value) {
-              let el = $('#' + key);
-              el.closest('div.form-group').find("div.error").remove();
-              el.after(value);
-            })
-          }
-        }
-      })
-    })
 
 
     // Tambah Form

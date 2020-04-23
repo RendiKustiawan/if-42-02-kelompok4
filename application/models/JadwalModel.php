@@ -23,8 +23,8 @@ class JadwalModel extends CI_Model
 
     public function updateJadwal($data, $id_jadwal)
     {
-        $this->db->where('id_jadwal',$id_jadwal);
-        this->db->update('jadwal_imunisasi')
+        $this->db->where('id_jadwal', $id_jadwal);
+        return $this->db->update('jadwal_imunisasi', $data);
     }
 
     public function getTanggal($id_jadwal)
