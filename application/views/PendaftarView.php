@@ -193,6 +193,91 @@ if (!$this->session->userdata('username')) {
         </div>
         <div class="form-button modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" id="tambahSubmit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal Pendaftar -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Tambah <?= $title ?></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="editForm" method="POST">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="nip-edit" class="col-form-label">NIP</label>
+            <input type="text" class="form-control" value="<?= $this->session->userdata('id') ?>" id="nip-edit" name="nip-edit" readonly>
+          </div>
+          <div class="form-group">
+            <label for="no_antrian-edit" class="col-form-label">No Antrian</label>
+            <input type="text" class="form-control no_antrian" id="no_antrian-edit" name="no_antrian-edit" readonly>
+          </div>
+          <div class="form-group">
+            <label for="tanggal-edit" class="col-form-label">Tanggal</label>
+            <select class="form-control tanggal" id="tanggal-edit" name="tanggal-edit">
+              <?php
+                $query = $this->db->get('jadwal_imunisasi');
+                $result = $query->result_array();
+                foreach ($result as $key) {
+                  echo "<option value='" . $key['id_jadwal'] . "'>" . $key['tanggal'] . "</option>";
+                }
+              ?>
+            </select>
+            <input type="hidden" name="tanggal-hidden" id="tanggal-hidden">
+          </div>
+          <div class="row">
+            <div class="form-group col-9">
+              <!-- <div class="col-9"> -->
+              <label for="usia_anak-edit" class="col-form-label">Usia Anak</label>
+              <input type="number" min="0" class="form-control" id="usia_anak-edit" name="usia_anak-edit">
+              <!-- </div> -->
+              <!-- <div class="col-3 d-flex align-items-end"> -->
+              <!-- </div> -->
+            </div>
+            <div class="form-group col-3">
+              <label for="usia-edit" class="col-form-label" style="visibility: hidden;">.</label>
+              <select class="form-control" id="usia-edit" name="usia-edit">
+                <option value="Tahun">Tahun</option>
+                <option value="Bulan">Bulan</option>
+                <option value="Hari">Hari</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-10">
+              <label for="tinggi_anak-edit" class="col-form-label">Tinggi Anak</label>
+              <input type="number" min="0" class="form-control" id="tinggi_anak-edit" name="tinggi_anak-edit">
+            </div>
+            <div class="form-group col-2">
+              <label class="col-form-label" style="visibility: hidden;">.</label>
+              <input type="text" disabled class="form-control-plaintext" value="cm">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-10">
+              <label for="berat_anak-edit" class="col-form-label">Berat Anak</label>
+              <input type="number" class="form-control" id="berat_anak-edit" name="berat_anak-edit">
+            </div>
+            <div class="form-group col-2">
+              <label class="col-form-label" style="visibility: hidden;">.</label>
+              <input type="text" disabled class="form-control-plaintext" value="kg">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="keluhan-edit" class="col-form-label">Keluhan</label>
+            <input type="text" class="form-control" id="keluhan-edit" name="keluhan-edit">
+          </div>
+        </div>
+        <div class="form-button modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary" id="editSubmit">Submit</button>
         </div>
       </form>
