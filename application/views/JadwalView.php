@@ -92,6 +92,7 @@ if (!$this->session->userdata('username')) {
 <script type="text/javascript">
   // Get Data Jadwal
   $(document).ready(function() {
+    const id = <?= $this->session->userdata('id'); ?>;
     let table = $('#mydata').DataTable({
       "ordering": true,
       "order": [
@@ -117,7 +118,7 @@ if (!$this->session->userdata('username')) {
         {
           "data": "id_jadwal",
           "render": function(data, type, row) {
-            return <?= $this->session->userdata('hak_akses'); ?> == 2 ? `<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-whatever="${data}"><i class="fas fa-trash"></i></button>
+            return <?= $this->session->userdata('hak_akses'); ?> == 2 && row.id_dokter == id ? `<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-whatever="${data}"><i class="fas fa-trash"></i></button>
             <div class="mt-2 mt-md-0 ml-md-2 d-inline-block"><button class="btn btn-primary mr-2" data-toggle="modal" data-target="#editModal" data-edit="${data}"><i class="fas fa-edit"></i></button></div>` : ''
           }
         }
