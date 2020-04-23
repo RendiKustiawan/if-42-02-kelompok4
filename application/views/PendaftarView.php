@@ -379,5 +379,54 @@ if (!$this->session->userdata('username')) {
     $(".tanggal").on('change', function() {
       count_jadwal($(this).val())
     });
+
+    $('#editModal').on('show.bs.modal', function(event) {
+      let id_tabel_pendaftar = $(event.relatedTarget).data('edit');
+      let modal = $(this);
+
+      $.ajax({
+        url: `<?= base_url('PendaftarController/update_pendaftar/') ?>${id_tabel_pendaftar}`,
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+          if (data) {
+            $("#nipp").val(data.nip);
+            $("#noantrian").val(data.no_antrian);
+            $("#keluhann").val(data.keluhan);
+          } else {
+            console.log("error");
+          }
+        }
+      })
+      $('#editForm').on('submit', function(event) {
+        event.preventDefault();
+        let form = $(this);
+        console.log(id_tabel_pendaftar);
+
+        $.ajax({
+          url: `<?= base_url('PendaftarController/edit_pendaftar/') ?>${id_tabel_pendaftar}`,
+          type: "POST",
+          data: form.serialize(),
+          dataType: 'json',
+          success: function(res) {
+            if (res.success == true) {
+              $("#nipp").val('');
+              $("#noantrian").val('');
+              $("#tanggal").val('');
+              $('#keluhann').val('');
+              table.ajax.reload();
+              $("#editModal").modal('hide');
+            } else {
+              $.each(res.messages, function(key, value) {
+                let el = $('#' + key);
+                el.closest('div.form-group').find("div.error").remove();
+                el.after(value);
+              })
+            }
+          }
+        })
+      })
+      
+    });
   });
 </script>

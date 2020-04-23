@@ -20,7 +20,7 @@ class PendaftarModel extends CI_Model
 
   public function updatePendaftar($data, $id){
       $this->db->where('id_tabel_pendaftar', $id);
-      return $this->db->update('tabel_pendaftar_imunisasi', $data);
+      return $this->db->update('tabel_pendaftar_imunisasi', $data
   }
 
   public function addPendaftar($data)
