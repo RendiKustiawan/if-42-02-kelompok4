@@ -1,3 +1,9 @@
+<?php
+if (!$this->session->userdata('username')) {
+  redirect('Landing/dashboard');
+}
+?>
+
 <div class="py-5">
   <h1 class="text-center"><?= $title ?></h1>
   <div class="table-responsive container">

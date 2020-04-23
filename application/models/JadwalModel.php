@@ -30,7 +30,7 @@ class JadwalModel extends CI_Model
     public function getTanggal($id_jadwal)
     {
         $query = $this->db->query("SELECT tanggal FROM jadwal_imunisasi where jadwal_imunisasi.id_jadwal = $id_jadwal");
-        return $query->result();
+        return $query->row();
     }
 }
 

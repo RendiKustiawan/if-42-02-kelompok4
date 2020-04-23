@@ -8,20 +8,20 @@
     <div class="carousel-inner">
       <div class="carousel-item active bg-danger" style="height: 300px;">
         <div class="carousel-caption d-none d-md-block">
-          <h5>First slide label</h5>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <h5>First slide</h5>
+          <p>Ini Warna Merah</p>
         </div>
       </div>
       <div class="carousel-item bg-warning" style="height: 300px;">
         <div class="carousel-caption d-none d-md-block">
-          <h5>Second slide label</h5>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h5>Second slide</h5>
+          <p>Ini Warna Kuning</p>
         </div>
       </div>
       <div class="carousel-item bg-success" style="height: 300px;">
         <div class="carousel-caption d-none d-md-block">
-          <h5>Third slide label</h5>
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+          <h5>Third slide</h5>
+          <p>Ini Wanra Hijau</p>
         </div>
       </div>
     </div>
