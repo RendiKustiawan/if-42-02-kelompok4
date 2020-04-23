@@ -58,7 +58,7 @@ if (!$this->session->userdata('username')) {
               $query = $this->db->get('jadwal_imunisasi');
               $result = $query->result_array();
               foreach ($result as $key) {
-                echo "<option value='" . $key['id_jadwall'] . "'>" . $key['tanggall'] . "</option>";
+                echo "<option value='" . $key['id_jadwall'] . "'>" . $key['tanggal'] . "</option>";
               }
               ?>
             </select>
@@ -239,7 +239,7 @@ if (!$this->session->userdata('username')) {
           "data": "id_tabel_pendaftar",
           "render": function(data, type, row) {
             return <?= $this->session->userdata("hak_akses") ?> == 3 ? `<button class="btn btn-danger" data-toggle="modal"
-            data-target="#deleteModal" data-nip="${row.nip}"  data-antrian="${row.no_antrian}"  data-whatever="${data}"><i class="fas fa-trash"></i></button><div class="mt-2 ml-md-2 mt-md-0 d-inline-block"><button class="btn btn-primary mr-2" data-toggle="modal" data-target="#editModal" data-edit="${data}"><i class="fas fa-edit"></i></button></div>` 
+            data-target="#deleteModal" data-nip="${row.nip}"  data-antrian="${row.no_antrian}"  data-whatever="${data}"><i class="fas fa-trash"></i></button><div class="mt-2 ml-md-2 mt-md-0 d-inline-block"><button class="btn btn-primary mr-2" data-toggle="modal" data-target="#editModal" data-edit="${data}"><i class="fas fa-edit"></i></button></div>` : ""
           }
         }
       ]
@@ -321,22 +321,48 @@ if (!$this->session->userdata('username')) {
       let modal = $(this);
 
       $.ajax({
-        url: `<?= base_url('PendaftarController/data_pendaftar/') ?>${id_tabel_pendaftar}`,
+        url: `<?= base_url('PendaftarController/update_pendaftar/') ?>${id_tabel_pendaftar}`,
         type: "GET",
         dataType: "json",
         success: function(data) {
           if (data) {
-            $("#noantrian").val(data.noantrian);
-            $("#usiaanak").val(data.usianak);
-            $("#tinggianak").val(data.tinggianak);
-            $("#beratanak").val(data.beratanak);
-            $("#keluhann").val(data.keluhann);
-            $("#tanggall").val(data.tanggall);
+            $("#nipp").val(data.nip);
+            $("#noantrian").val(data.no_antrian);
+            $("#keluhann").val(data.keluhan);
           } else {
             console.log("error");
           }
         }
       })
+      $('#editForm').on('submit', function(event) {
+        event.preventDefault();
+        let form = $(this);
+        console.log(id_tabel_pendaftar);
+
+        $.ajax({
+          url: `<?= base_url('PendaftarController/edit_pendaftar/') ?>${id_tabel_pendaftar}`,
+          type: "POST",
+          data: form.serialize(),
+          dataType: 'json',
+          success: function(res) {
+            if (res.success == true) {
+              $("#nipp").val('');
+              $("#noantrian").val('');
+              $("#tanggal").val('');
+              $('#keluhann').val('');
+              table.ajax.reload();
+              $("#editModal").modal('hide');
+            } else {
+              $.each(res.messages, function(key, value) {
+                let el = $('#' + key);
+                el.closest('div.form-group').find("div.error").remove();
+                el.after(value);
+              })
+            }
+          }
+        })
+      })
+      
     });
   });
 </script>

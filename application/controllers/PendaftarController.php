@@ -30,6 +30,12 @@ class PendaftarController extends CI_Controller
     echo json_encode($data);
   }
 
+  public function update_pendaftar($id_tabel_pendaftar)
+  {
+    $data= $this->PendaftarModel->dapatsatupendaftar($id_tabel_pendaftar);
+    echo json_encode($data);
+  }
+
   public function delete_pendaftar($id_tabel_pendaftar)
   {
     $this->PendaftarModel->deletePendaftar($id_tabel_pendaftar);
@@ -57,14 +63,14 @@ class PendaftarController extends CI_Controller
       }
       $data1 = [
         'nip' => $data['nip'],
-        'id_jadwall' => $data['tanggall'],
-        'noantrian' => $data['noantrian'],
-        'usiaanak' => $data['usiaanak'].' '.$data['usiaa'],
-        'tinggianak' => $data['tinggianak'].' cm',
-        'beratanak' => $data['beratanak'].' kg',
-        'keluhann' => $data['keluhann']
+        'id_jadwal' => $data['tanggall'],
+        'no_antrian' => $data['noantrian'],
+        'usia_anak' => $data['usiaanak'].' '.$data['usiaa'],
+        'tinggi_anak' => $data['tinggianak'].' cm',
+        'berat_anak' => $data['beratanak'].' kg',
+        'keluhan' => $data['keluhann']
       ];
-      $this->PendaftarModel->editPendaftar($data1);
+      $this->PendaftarModel->editPendaftar($data1, $id_tabel_pendaftar);
     } else {
       foreach ($_POST as $key => $value) {
         $msg['messages'][$key] = form_error($key);
