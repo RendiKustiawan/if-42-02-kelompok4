@@ -25,43 +25,85 @@
   </div>
 </div>
 
-<!-- Edit Modal Pendaftar
+<!-- Edit Modal Pendaftar -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel"> Edit Form <?= $title ?></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <form id="EditForm" method="POST">
+      <form id="editForm" method="POST">
         <div class="modal-body">
           <div class="form-group">
-            <label for="name" class="col-form-label">NIP</label>
-            <input type="text" class="form-control" id="nip" name="nip">
+            <label for="nipp" class="col-form-label">NIP</label>
+            <input type="text" class="form-control" value="<?= $this->session->userdata('id') ?>" id="nipp" name="nipp" readonly>
           </div>
           <div class="form-group">
-            <label for="username" class="col-form-label">No Antrian</label>
-            <input type="text" class="form-control" id="no_antrian" name="no_antrian">
+            <label for="noantrian" class="col-form-label">No Antrian</label>
+            <input type="text" class="form-control no_antrian" id="noantrian" name="noantrian" readonly>
           </div>
           <div class="form-group">
-            <label for="username" class="col-form-label">Usia Anak</label>
-            <input type="text" class="form-control" id="usia_anak" name="usia_anak">
+            <label for="tanggall" class="col-form-label">Tanggal</label>
+            <select class="form-control tanggal" id="tanggall" name="tanggall">
+              <?php
+              $query = $this->db->get('jadwal_imunisasi');
+              $result = $query->result_array();
+              foreach ($result as $key) {
+                echo "<option value='" . $key['id_jadwall'] . "'>" . $key['tanggall'] . "</option>";
+              }
+              ?>
+            </select>
+          </div>
+          <div class="row">
+            <div class="form-group col-9">
+              <label for="usiaanak" class="col-form-label">Usia Anak</label>
+              <input type="number" class="form-control" id="usiaanak" name="usiaanak">
+            </div>
+            <div class="form-group col-3">
+              <label for="usiaa" class="col-form-label" style="visibility: hidden;">.</label>
+              <select class="form-control" id="usiaa" name="usiaa">
+                <option value="Tahun">Tahun</option>
+                <option value="Bulan">Bulan</option>
+                <option value="Hari">Hari</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-10">
+              <label for="tinggianak" class="col-form-label">Tinggi Anak</label>
+              <input type="number" class="form-control" id="tinggianak" name="tinggianak">
+            </div>
+            <div class="form-group col-2">
+              <label class="col-form-label" style="visibility: hidden;">.</label>
+              <input type="text" disabled class="form-control-plaintext" value="cm">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-10">
+              <label for="beratanak" class="col-form-label">Berat Anak</label>
+              <input type="number" class="form-control" id="beratanak" name="beratanak">
+            </div>
+            <div class="form-group col-2">
+              <label class="col-form-label" style="visibility: hidden;">.</label>
+              <input type="text" disabled class="form-control-plaintext" value="kg">
+            </div>
           </div>
           <div class="form-group">
-            <label for="username" class="col-form-label">Tinggi Anak</label>
-            <input type="text" class="form-control" id="tinggi_anak" name="tinggi_anak">
+            <label for="keluhann" class="col-form-label">Keluhan</label>
+            <input type="text" class="form-control" id="keluhann" name="keluhann">
           </div>
-          <div class="form-group">
-            <label for="username" class="col-form-label">Berat Anak</label>
-            <input type="text" class="form-control" id="berat_anak" name="berat_anak">
-          </div>
-          <div class="form-group">
-            <label for="username" class="col-form-label">Keluhan</label>
-            <input type="text" class="form-control" id="keluhan" name="keluhan">
-          </div>
-
         </div>
         <div class="form-button modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="tambahSubmit">Edit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" id="editSubmit">Submit</button>
         </div>
       </form>
-     -->
+    </div>
+  </div>
+</div>
 
 <!-- Tambah Modal Pendaftar -->
 <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
@@ -191,7 +233,7 @@
           "data": "id_tabel_pendaftar",
           "render": function(data, type, row) {
             return <?= $this->session->userdata("hak_akses") ?> == 3 ? `<button class="btn btn-danger" data-toggle="modal"
-            data-target="#deleteModal" data-nip="${row.nip}"  data-antrian="${row.no_antrian}"  data-whatever="${data}"><i class="fas fa-trash"></i></button>` : ""
+            data-target="#deleteModal" data-nip="${row.nip}"  data-antrian="${row.no_antrian}"  data-whatever="${data}"><i class="fas fa-trash"></i></button><div class="mt-2 ml-md-2 mt-md-0 d-inline-block"><button class="btn btn-primary mr-2" data-toggle="modal" data-target="#editModal" data-edit="${data}"><i class="fas fa-edit"></i></button></div>` 
           }
         }
       ]
@@ -266,6 +308,29 @@
 
     $(".tanggal").on('change', function() {
       count_jadwal($(this).val())
+    });
+
+    $('#editModal').on('show.bs.modal', function(event) {
+      let id_tabel_pendaftar = $(event.relatedTarget).data('edit');
+      let modal = $(this);
+
+      $.ajax({
+        url: `<?= base_url('PendaftarController/data_pendaftar/') ?>${id_tabel_pendaftar}`,
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+          if (data) {
+            $("#noantrian").val(data.noantrian);
+            $("#usiaanak").val(data.usianak);
+            $("#tinggianak").val(data.tinggianak);
+            $("#beratanak").val(data.beratanak);
+            $("#keluhann").val(data.keluhann);
+            $("#tanggall").val(data.tanggall);
+          } else {
+            console.log("error");
+          }
+        }
+      })
     });
   });
 </script>

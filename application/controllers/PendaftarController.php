@@ -36,16 +36,41 @@ class PendaftarController extends CI_Controller
     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data ' . $id_tabel_pendaftar . ' Berhasil Dihapus</div>');
   }
 
-  // public function edit_pendaftar($id_tabel_pendaftar){
-  //    $data = [
-  //        'nip' => $this->input->post('nip');
-  //        'no_antrian' => $this->input->post('no_antrian');
-  //        'usia_anak' => $this->input->post('usia_anak');
-  //        'tinggi_anak' => $this->input->post('tinggi_anak');
-  //        'berat_anak' => $this->input->post('berat_anak');
-  //        'keluhan' => $this->input->post('keluhan');      
-  //    ];
-  // }
+  
+  public function edit_pendaftar()
+  {
+    $data = [];
+    $msg = array('success' => false, 'messages' => array());
+    $this->form_validation->set_rules("nipp", "NIP", "trim|required");
+    $this->form_validation->set_rules("noantrian", "No Antrian", "trim|required");
+    $this->form_validation->set_rules("usiaanak", "Usia Anak", "trim|required");
+    $this->form_validation->set_rules("tinggianak", "Tinggi Anak", "trim|required");
+    $this->form_validation->set_rules("beratanak", "Berat Anak", "trim|required");
+    $this->form_validation->set_rules("keluhann", "Keluhan", "trim|required");
+    $this->form_validation->set_rules("tanggall", "Tanggal", "trim|required|callback_check_tanggal");
+    $this->form_validation->set_error_delimiters('<div class="error text-danger">', '</div>');
+
+    if ($this->form_validation->run()) {
+      $msg['success'] = true;
+      foreach ($_POST as $key => $value) {
+        $data[$key] = $value;
+      }
+      $data1 = [
+        'nip' => $data['nip'],
+        'id_jadwall' => $data['tanggall'],
+        'noantrian' => $data['noantrian'],
+        'usiaanak' => $data['usiaanak'].' '.$data['usiaa'],
+        'tinggianak' => $data['tinggianak'].' cm',
+        'beratanak' => $data['beratanak'].' kg',
+        'keluhann' => $data['keluhann']
+      ];
+      $this->PendaftarModel->editPendaftar($data1);
+    } else {
+      foreach ($_POST as $key => $value) {
+        $msg['messages'][$key] = form_error($key);
+      }
+  }
+}
 
   public function add_pendaftar()
   {
