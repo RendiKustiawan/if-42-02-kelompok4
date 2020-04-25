@@ -182,7 +182,7 @@ a:hover {
 
 .dashboard-brand {
 	width: 16.66%;
-	background-color: #adb7d9
+	background-color: #adb7d9;
 }
 
 .dashboard-navbar .navbar-nav #menuUser {
@@ -254,5 +254,18 @@ a:hover {
 }
 
 .dashboard-image-container img {
-	margin: 10px
+	margin: 10px;
+}
+
+.carousel .slide, .carousel-inner {
+	border-radius: 100px;
+}
+
+.carousel-item img {
+	width: 100%;
+	height: 500px;
+}
+
+.carousel-caption {
+	background-color: rgba(0, 0, 0, 0.4);
 }

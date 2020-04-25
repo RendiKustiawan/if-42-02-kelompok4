@@ -6,22 +6,25 @@
       <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
-      <div class="carousel-item active bg-danger" style="height: 300px;">
+      <div class="carousel-item active bg-danger" style="height: 500px;">
+        <img src="<?= base_url('assets/img/doc1.jpeg') ?>">
         <div class="carousel-caption d-none d-md-block">
           <h5>First slide</h5>
-          <p>Ini Warna Merah</p>
+          <p>Ini Dokter 1</p>
         </div>
       </div>
-      <div class="carousel-item bg-warning" style="height: 300px;">
+      <div class="carousel-item bg-warning" style="height: 500px;">
+        <img src="<?= base_url('assets/img/doc2.jpeg') ?>">
         <div class="carousel-caption d-none d-md-block">
           <h5>Second slide</h5>
-          <p>Ini Warna Kuning</p>
+          <p>Ini Dokter 2</p>
         </div>
       </div>
-      <div class="carousel-item bg-success" style="height: 300px;">
+      <div class="carousel-item bg-success" style="height: 500px;">
+        <img src="<?= base_url('assets/img/doc3.jpeg') ?>">
         <div class="carousel-caption d-none d-md-block">
           <h5>Third slide</h5>
-          <p>Ini Wanra Hijau</p>
+          <p>Ini Dokter Rame - Rame</p>
         </div>
       </div>
     </div>
