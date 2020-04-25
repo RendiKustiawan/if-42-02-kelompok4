@@ -165,9 +165,6 @@ if ($this->session->userdata('username')) {
 
     $('#tambahForm').on('submit', function(event) {
       event.preventDefault();
-      // let name = $("#name").val()
-      // let username = $("#username").val()
-      // let password = $("#password").val()
       let form = $(this);
 
       $.ajax({
