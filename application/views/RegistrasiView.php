@@ -27,7 +27,7 @@
   </div>
   <div class="sign-in-form p-xl-0 p-3 mt-3 m-xl-0">
     <div class="card ml-xl-5">
-      <div class="card-header">Sign In to Posyandu</div>
+      <div class="card-header">Sign Up to Posyandu</div>
       <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
 

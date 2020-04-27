@@ -137,6 +137,7 @@ class Landing extends CI_Controller
 				),
 				'hak_akses' => 3
 			];
+			
 			$data2 = [
 				'username' => $this->input->post('username', true),
 				'nip' => $this->input->post('nip', true),
